@@ -7,11 +7,11 @@ public class Routes {
 	static String FORGOT_PASSWORD = "api/v1/forget-password";
 	static String PUBLIC = "api/v1/pub/**";
 
-	// システム管理者1
+	// システム管理者 1 
 	static String Admin = "api/v1/admin/**";
 	static String REGISTER = "api/v1/register";
 
-	// 運用管理者２
+	// グループ主任 2 
 	static String Shoninsha = "api/v1/shonin_sha/**";
 
 	// 一般社員３

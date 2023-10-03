@@ -1,6 +1,8 @@
 package co.jp.starse.kintai.dto;
 
 
+import org.springframework.http.HttpStatus;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -11,9 +13,11 @@ import lombok.NoArgsConstructor;
 @Builder
 @Data
 public class LoginResponseDto {
-	private int id;
-	private String login;
+	private int code;
+	private String message;
 	private String token;
-	private String role;
-
+	private UsersDto user;
+	public LoginResponseDto(HttpStatus status) {
+		this.code = status.value();
+	}
 }

@@ -6,6 +6,6 @@ import org.apache.ibatis.annotations.Param;
 import co.jp.starse.kintai.entity.Users;
 
 @Mapper
-public interface UsersRepository {
-	
+public interface AuthRepository {
+	public Users findByEmail(@Param("mail") String mail);
 }

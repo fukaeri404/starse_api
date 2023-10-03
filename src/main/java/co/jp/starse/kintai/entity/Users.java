@@ -2,7 +2,7 @@ package co.jp.starse.kintai.entity;
 
 import java.sql.Timestamp;
 
-import co.jp.starse.kintai.dto.LoginResponseDto;
+import co.jp.starse.kintai.dto.UsersDto;
 import lombok.Data;
 
 @Data
@@ -12,11 +12,11 @@ public class Users {
 	private String userName;
 	private String userNameKana;
 	private String userNameRyaku;
-	private String email;
+	private String mail;
 	private String password;
 	private String userImgPath;
 	private int groupId;
-	private String yakushoku;
+	private String role;
 	private String shoninshaKubun;
 	private String birthday;
 	private String userKubun;
@@ -30,11 +30,12 @@ public class Users {
 	private Timestamp createdAt;
 	private Timestamp updatedAt;
 
-	public LoginResponseDto toLoginResponseDto() {
-		LoginResponseDto dto = new LoginResponseDto();
-		dto.setId(userId);
-		dto.setLogin(email);
-		dto.setRole(yakushoku);
-		return dto;
+	public UsersDto toUserDto() {
+		UsersDto userDto = new UsersDto();
+		userDto.setUserId(userId);
+	    userDto.setUserName(userName);
+		userDto.setEmail(mail);
+		userDto.setAuthority(role);
+		return userDto;
 	}
 }

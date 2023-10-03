@@ -9,14 +9,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import co.jp.starse.kintai.dto.LoginDto;
-import co.jp.starse.kintai.service.LoginService;
+import co.jp.starse.kintai.service.AuthService;
 
 @CrossOrigin
 @RequestMapping("${api.base-path}")
 @RestController
-public class LoginController {
+public class AuthController {
 	@Autowired
-	LoginService loginService;
+	AuthService loginService;
 	
 	@PostMapping("/login")
 	public ResponseEntity<Object> login(@RequestBody LoginDto dto){

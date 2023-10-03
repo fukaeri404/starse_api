@@ -9,8 +9,8 @@ public class AuthorizeRequest {
 	static void configureAuthorizeRequests(
 			AuthorizeHttpRequestsConfigurer<HttpSecurity>.AuthorizationManagerRequestMatcherRegistry request) {
 		request.requestMatchers(HttpMethod.POST, Routes.LOGIN).permitAll()
-				.requestMatchers(HttpMethod.POST, Routes.FORGOT_PASSWORD,Routes.CHANGE_PASSWORD).hasAnyAuthority("1","2","3","4","5","6","7","8")
-				.requestMatchers(HttpMethod.GET, Routes.RESET_PASSWORD).hasAnyAuthority("1","2","3","4","5","6","7","8");
-				
+				.requestMatchers(Routes.User, Routes.CHANGE_PASSWORD).hasAnyAuthority("1", "2", "3", "4")
+				.requestMatchers(Routes.PUBLIC, Routes.FORGOT_PASSWORD).permitAll()
+				.requestMatchers(Routes.RESET_PASSWORD).hasAnyAuthority("1", "2", "3");
 	}
 }

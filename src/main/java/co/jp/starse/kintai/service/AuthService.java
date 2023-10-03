@@ -6,32 +6,33 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import co.jp.starse.kintai.common.Messages;
 import co.jp.starse.kintai.config.UserAuthProvider;
 import co.jp.starse.kintai.dto.LoginDto;
 import co.jp.starse.kintai.dto.LoginResponseDto;
 import co.jp.starse.kintai.entity.Users;
+import co.jp.starse.kintai.exception.ApiResponse;
 
 @Service
-public class LoginService {
+public class AuthService {
 	@Autowired
 	UserService userService;
-	
+
 	@Autowired
 	PasswordEncoder passwordEncoder;
 
 	@Autowired
 	UserAuthProvider userAuthProvider;
-	
-	
-	
-	public ResponseEntity<Object> login(LoginDto dto){
-		Users users = userService.findByEmail(dto.getLogin());
-		if(users!=null && passwordEncoder.matches(dto.getPassword(), users.getPassword())) {
-			LoginResponseDto responseDto=users.toLoginResponseDto();
-			responseDto.setToken(userAuthProvider.createToken(dto.getLogin()));
-			return ResponseEntity.ok(responseDto);
-		}
-		return new ResponseEntity<Object>("username or password does not mathch",HttpStatus.BAD_REQUEST);
-	}
 
+	public ResponseEntity<Object> login(LoginDto dto) {
+		Users user = userService.findByEmail(dto.getLogin());
+		if (user != null && passwordEncoder.matches(dto.getPassword(), user.getPassword())) {
+			LoginResponseDto loginResponse = new LoginResponseDto();
+			loginResponse.setCode(200);
+			loginResponse.setMessage(Messages.LOGIN_SUCCESS);
+			loginResponse.setUser(user.toUserDto());
+			return ResponseEntity.ok(loginResponse);
+		}
+		return new ApiResponse(Messages.LOGIN_FAIL, HttpStatus.CONFLICT).response();
+	}
 }

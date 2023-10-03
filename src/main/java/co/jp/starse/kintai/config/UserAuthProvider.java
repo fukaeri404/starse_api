@@ -16,6 +16,10 @@ import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.auth0.jwt.interfaces.JWTVerifier;
+
+import co.jp.starse.kintai.dto.UsersDto;
+import co.jp.starse.kintai.service.AuthService;
+import co.jp.starse.kintai.service.UserService;
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 
@@ -25,8 +29,8 @@ public class UserAuthProvider {
 	@Value("${security.jwt.token.secret-key}")
 	private String secretKey;
 
-//	@Autowired
-//	UserService authService;
+	@Autowired
+	UserService userService;
 
 	/**
 	 * キーを強くなるための エンコードする コンストラクタ
@@ -68,30 +72,30 @@ public class UserAuthProvider {
 	 * @param token リクエストヘッダーから送った Token
 	 * @return
 	 */
-//	public Authentication validateToken(String token) {
-//		JWTVerifier verifier = JWT.require(Algorithm.HMAC256(secretKey)).build();
-//		DecodedJWT decoded = verifier.verify(token);
-//		UserDto user = authService.findByEmail(decoded.getIssuer()).toUserDto();
-//		// roles
-//		List<SimpleGrantedAuthority> authorities = new ArrayList<>();
-//		authorities.add(new SimpleGrantedAuthority(user.getAuthority()));
-//		return new UsernamePasswordAuthenticationToken(user, null, authorities);
-//	}
+	public Authentication validateToken(String token) {
+		JWTVerifier verifier = JWT.require(Algorithm.HMAC256(secretKey)).build();
+		DecodedJWT decoded = verifier.verify(token);
+		UsersDto user = userService.findByEmail(decoded.getIssuer()).toUserDto();
+		// roles
+		List<SimpleGrantedAuthority> authorities = new ArrayList<>();
+		authorities.add(new SimpleGrantedAuthority(user.getAuthority()));
+		return new UsernamePasswordAuthenticationToken(user, null, authorities);
+	}
 
 	/**
 	 * パスワード忘れ確認機能
 	 * 
 	 * @param token、 メートから送ったURLの中に運ぶToken
 	 */
-//	public void passwordResetFromUrl(String token) {
-//		JWTVerifier verifier = JWT.require(Algorithm.HMAC256(secretKey)).build();
-//		DecodedJWT decoded = verifier.verify(token);
-//		String email = decoded.getIssuer().split("<<~>>")[0];
-//		String password = decoded.getIssuer().split("<<~>>")[1];
-//		UserDto user = authService.findByEmail(email).toUserDto();
-//		if (user != null) {
-//			// ここから ユーサのパスワードを リセットする
-//			//
-//		}
-//	}
+	public void passwordResetFromUrl(String token) {
+		JWTVerifier verifier = JWT.require(Algorithm.HMAC256(secretKey)).build();
+		DecodedJWT decoded = verifier.verify(token);
+		String email = decoded.getIssuer().split("<<~>>")[0];
+		String password = decoded.getIssuer().split("<<~>>")[1];
+		UsersDto user = userService.findByEmail(email).toUserDto();
+		if (user != null) {
+			// ここから ユーサのパスワードを リセットする
+			//
+		}
+	}
 }
