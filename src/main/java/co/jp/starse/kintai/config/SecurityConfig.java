@@ -27,7 +27,8 @@ public class SecurityConfig {
 				.addFilterBefore(new JwtAuthFilter(userAuthProvider), BasicAuthenticationFilter.class)
 				.csrf(csrf -> csrf.disable())
 				.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-				.authorizeHttpRequests((request) -> AuthorizeRequest.configureAuthorizeRequests(request));
+				.authorizeHttpRequests((request) -> request.requestMatchers("/testing").permitAll());
+//				.authorizeHttpRequests((request) -> AuthorizeRequest.configureAuthorizeRequests(request));
 		return http.build();
 	}
 }

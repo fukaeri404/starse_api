@@ -75,6 +75,7 @@ public class UserAuthProvider {
 		JWTVerifier verifier = JWT.require(Algorithm.HMAC256(secretKey)).build();
 		DecodedJWT decoded = verifier.verify(token);
 		UsersDto user = userService.findByEmail(decoded.getIssuer()).toUserDto();
+		System.out.println("Testing Here: "+token);
 		// roles
 		List<SimpleGrantedAuthority> authorities = new ArrayList<>();
 		authorities.add(new SimpleGrantedAuthority(user.getAuthority()));

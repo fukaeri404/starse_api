@@ -3,6 +3,7 @@ package co.jp.starse.kintai.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,6 +22,11 @@ public class AuthController {
 	@PostMapping("/login")
 	public ResponseEntity<Object> login(@RequestBody LoginDto dto){
 		return loginService.login(dto);
+	}
+	
+	@GetMapping("/testing")
+	public ResponseEntity<Object> testing(){
+		return ResponseEntity.ok("Testing");
 	}
 
 }
