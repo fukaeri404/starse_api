@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper
-	namespace="co.jp.starse.kintai.repository.AuthRepository">
+<mapper namespace="co.jp.starse.kintai.repository.AuthRepository">
 	<resultMap type="co.jp.starse.kintai.entity.Users"
 		id="userMap">
 		<id property="userId" column="user_id"></id>
@@ -13,7 +12,7 @@
 		<result property="password" column="password" />
 		<result property="userImgPath" column="user_img_path" />
 		<result property="groupId" column="group_id" />
-		<result property="yakushoku" column="yakushoku" />
+		<result property="role" column="role" />
 		<result property="shoninshaKubun" column="shoninsha_kubun" />
 		<result property="birthday" column="birthday" />
 		<result property="userKubun" column="user_kubun" />
@@ -27,10 +26,23 @@
 		<result property="createdAt" column="created_at" />
 		<result property="updatedAt" column="updated_at" />
 	</resultMap>
-	
+
 	<select id="findByEmail" resultMap="userMap">
 		SELECT * FROM users
 		WHERE
 		mail=#{mail}
+	</select>
+
+	<select id="getUserByEamil" resultMap="userMap">
+		SELECT
+		user_id,user_name,mail,role,userKubun,user_name_kana,password,status
+		FROM users
+		WHERE mail=#{mail}
+	</select>
+
+	<select id="changePassword" resultMap="userMap">
+		UPDATE users
+		SET password=#{password}
+		WHERE mail=#{mail}
 	</select>
 </mapper>

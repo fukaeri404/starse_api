@@ -1,5 +1,7 @@
 package co.jp.starse.kintai.service;
 
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,6 +13,7 @@ import co.jp.starse.kintai.config.UserAuthProvider;
 import co.jp.starse.kintai.dto.LoginDto;
 import co.jp.starse.kintai.dto.LoginResponseDto;
 import co.jp.starse.kintai.entity.Users;
+import co.jp.starse.kintai.exception.ApiErrorResponse;
 import co.jp.starse.kintai.exception.ApiResponse;
 
 @Service
@@ -26,6 +29,12 @@ public class AuthService {
 
 	public ResponseEntity<Object> login(LoginDto dto) {
 		Users user = userService.findByEmail(dto.getLogin());
+
+		Map<String, Object> errors = dto.validate();
+		if (errors.size() > 0) {
+			return new ApiErrorResponse(errors, HttpStatus.UNAUTHORIZED, "Login is not successful!").response();
+		}
+
 		if (user != null && passwordEncoder.matches(dto.getPassword(), user.getPassword())) {
 			LoginResponseDto loginResponse = new LoginResponseDto();
 			loginResponse.setCode(200);
