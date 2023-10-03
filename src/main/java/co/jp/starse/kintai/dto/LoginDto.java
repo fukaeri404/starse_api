@@ -21,11 +21,13 @@ public class LoginDto {
 		Map<String,Object> errors = new LinkedHashMap<String, Object>();
 		
 		if(CommonUtils.isEmpty(login)) {
-			errors.put("login", "login is required");
+			errors.put("email", "メールアドレスが必要です。");
+		}else if (!CommonUtils.isValidEmail(login)) {
+			errors.put("email", "メールアドレスのフォーマットが間違っています。");
 		}
 		
 		if(CommonUtils.isEmpty(password)) {
-			errors.put("password", "password is required");
+			errors.put("password", "パスワードが必要です。");
 		}
 		
 		return errors;
