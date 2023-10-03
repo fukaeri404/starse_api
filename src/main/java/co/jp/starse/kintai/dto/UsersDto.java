@@ -37,5 +37,4 @@ public class UsersDto {
 	private int updatedUserId;
 	private Timestamp createdAt;
 	private Timestamp updatedAt;
-
 }

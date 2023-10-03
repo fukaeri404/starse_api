@@ -15,6 +15,5 @@ public class UserController {
 	@PostMapping("/admin/account/registration")
 	public Users createUsers() {
 		return null;
-
 	}
 }
