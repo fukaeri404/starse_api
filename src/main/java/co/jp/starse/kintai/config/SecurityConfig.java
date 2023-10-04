@@ -23,12 +23,12 @@ public class SecurityConfig {
 	
 	@Bean
 	SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-		http.exceptionHandling(handling -> handling.authenticationEntryPoint(userAuthenticationEntryPoint))
+		http
+		.exceptionHandling(handling -> handling.authenticationEntryPoint(userAuthenticationEntryPoint))
 				.addFilterBefore(new JwtAuthFilter(userAuthProvider), BasicAuthenticationFilter.class)
 				.csrf(csrf -> csrf.disable())
 				.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-				.authorizeHttpRequests((request) -> request.requestMatchers("/testing").permitAll());
-//				.authorizeHttpRequests((request) -> AuthorizeRequest.configureAuthorizeRequests(request));
+				.authorizeHttpRequests((request) -> AuthorizeRequest.configureAuthorizeRequests(request));
 		return http.build();
 	}
 }

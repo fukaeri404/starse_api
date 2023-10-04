@@ -12,6 +12,7 @@ import co.jp.starse.kintai.common.Messages;
 import co.jp.starse.kintai.config.UserAuthProvider;
 import co.jp.starse.kintai.dto.LoginDto;
 import co.jp.starse.kintai.dto.LoginResponseDto;
+import co.jp.starse.kintai.dto.PwdChangeDto;
 import co.jp.starse.kintai.entity.Users;
 import co.jp.starse.kintai.exception.ApiErrorResponse;
 import co.jp.starse.kintai.exception.ApiResponse;
@@ -26,10 +27,9 @@ public class AuthService {
 
 	@Autowired
 	UserAuthProvider userAuthProvider;
-
+	
 	public ResponseEntity<Object> login(LoginDto dto) {
 		Users user = userService.findByEmail(dto.getLogin());
-
 		Map<String, Object> errors = dto.validate();
 		if (errors.size() > 0) {
 			return new ApiErrorResponse(errors, HttpStatus.UNAUTHORIZED, "Login is not successful!").response();
@@ -39,9 +39,20 @@ public class AuthService {
 			LoginResponseDto loginResponse = new LoginResponseDto();
 			loginResponse.setCode(200);
 			loginResponse.setMessage(Messages.LOGIN_SUCCESS);
+			loginResponse.setToken(userAuthProvider.createToken(dto.getLogin()));
 			loginResponse.setUser(user.toUserDto());
 			return ResponseEntity.ok(loginResponse);
 		}
 		return new ApiResponse(Messages.LOGIN_FAIL, HttpStatus.CONFLICT).response();
+	}
+	
+	public ResponseEntity<Object> pwdChange(PwdChangeDto dto){
+		Users user = userService.findByEmail(dto.getLogin());
+		if (user != null && passwordEncoder.matches(dto.getOldPassword(), user.getPassword())) {
+			user.setPassword(passwordEncoder.encode(dto.getNewPassword()));
+			userService.changePassword(user);
+			return new ApiResponse(Messages.PASSWORD_CHANGE_SUCCESS, HttpStatus.OK).response();
+		}
+		return new ApiResponse(Messages.PASSWORD_CHANGE_FAIL, HttpStatus.CONFLICT).response();
 	}
 }
