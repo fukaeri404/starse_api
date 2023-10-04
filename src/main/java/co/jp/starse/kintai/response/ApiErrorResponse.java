@@ -1,4 +1,4 @@
-package co.jp.starse.kintai.exception;
+package co.jp.starse.kintai.response;
 
 import java.util.LinkedHashMap;
 import java.util.Map;

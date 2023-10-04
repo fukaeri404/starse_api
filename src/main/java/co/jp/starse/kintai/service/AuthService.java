@@ -14,8 +14,8 @@ import co.jp.starse.kintai.dto.LoginDto;
 import co.jp.starse.kintai.dto.LoginResponseDto;
 import co.jp.starse.kintai.dto.PwdChangeDto;
 import co.jp.starse.kintai.entity.Users;
-import co.jp.starse.kintai.exception.ApiErrorResponse;
-import co.jp.starse.kintai.exception.ApiResponse;
+import co.jp.starse.kintai.response.ApiErrorResponse;
+import co.jp.starse.kintai.response.ApiResponse;
 
 @Service
 public class AuthService {

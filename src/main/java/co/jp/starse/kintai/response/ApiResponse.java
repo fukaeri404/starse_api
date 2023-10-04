@@ -1,4 +1,4 @@
-package co.jp.starse.kintai.exception;
+package co.jp.starse.kintai.response;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
