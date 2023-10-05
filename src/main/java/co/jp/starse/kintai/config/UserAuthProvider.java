@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import com.auth0.jwt.JWT;
@@ -18,6 +19,8 @@ import com.auth0.jwt.interfaces.DecodedJWT;
 import com.auth0.jwt.interfaces.JWTVerifier;
 
 import co.jp.starse.kintai.dto.UsersDto;
+import co.jp.starse.kintai.repository.AuthMapper;
+import co.jp.starse.kintai.service.AuthService;
 import co.jp.starse.kintai.service.UserService;
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
@@ -30,6 +33,12 @@ public class UserAuthProvider {
 
 	@Autowired
 	UserService userService;
+	
+	@Autowired
+	AuthMapper authMapper;
+	
+	@Autowired
+	PasswordEncoder passwordEncoder;
 
 	/**
 	 * キーを強くなるための エンコードする コンストラクタ
@@ -75,7 +84,6 @@ public class UserAuthProvider {
 		JWTVerifier verifier = JWT.require(Algorithm.HMAC256(secretKey)).build();
 		DecodedJWT decoded = verifier.verify(token);
 		UsersDto user = userService.findByEmail(decoded.getIssuer()).toUserDto();
-		System.out.println("Testing Here: "+token);
 		// roles
 		List<SimpleGrantedAuthority> authorities = new ArrayList<>();
 		authorities.add(new SimpleGrantedAuthority(user.getAuthority()));
@@ -95,7 +103,8 @@ public class UserAuthProvider {
 		UsersDto user = userService.findByEmail(email).toUserDto();
 		if (user != null) {
 			// ここから ユーサのパスワードを リセットする
-			//
+			password = passwordEncoder.encode(password);
+			authMapper.changePassword(password, email);	
 		}
 	}
 }
