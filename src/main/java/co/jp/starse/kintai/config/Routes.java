@@ -19,7 +19,7 @@ public class Routes {
 	static String User = "api/v1/user/**";
 
 	// システム管理者1, 運用管理者２, 一般社員３
-	static String RESET_PASSWORD = "api/v1/confirm-password-reset";
+	static String RESET_PASSWORD = "api/v1/confirm-password-reset/**";
 
 	// システム管理者1, 運用管理者２, 一般社員３, お客様4
 	static String CHANGE_PASSWORD = "api/v1/change-password";

@@ -16,7 +16,7 @@
 		<result property="shoninshaKubun" column="shoninsha_kubun" />
 		<result property="birthday" column="birthday" />
 		<result property="userKubun" column="user_kubun" />
-		<result property="nyushaDate" column="nyusha-date" />
+		<result property="nyushaDate" column="nyusha_date" />
 		<result property="status" column="status" />
 		<result property="remainLeave" column="remain_leave" />
 		<result property="lastGetLeaveDt" column="last_get_leave_dt" />
@@ -45,4 +45,46 @@
 		SET password=#{password}
 		WHERE mail=#{mail}
 	</select>
+	
+	 <insert id="register">
+		INSERT into users(
+		kubun_id,
+		user_name,
+		user_name_kana,
+		user_name_ryaku,
+		mail,
+		password,
+		user_img_path,
+		role,
+		shoninsha_kubun,
+		birthday,
+		user_kubun,
+		nyusha_date,
+		status,
+		remain_leave,
+		created_user_id,
+		updated_user_id,
+		created_at,
+		updated_at)
+		values(
+		#{kubunId},
+		#{userName},
+		#{userNameKana},
+		#{userNameRyaku},
+		#{mail},
+		#{password},
+		#{userImgPath},
+		#{role},
+		#{shoninshaKubun},
+		#{birthday},
+		#{userKubun},
+		'2022-12-12',
+		#{status},
+		#{remainLeave},
+		#{createdUserId},
+		#{updatedUserId},
+		NOW(),
+		NOW()
+		)
+	</insert>
 </mapper>
