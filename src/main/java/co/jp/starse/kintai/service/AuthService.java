@@ -63,25 +63,7 @@ public class AuthService {
 		}
 		return new ApiResponse(Messages.PASSWORD_CHANGE_FAIL, HttpStatus.CONFLICT).response();
 	}
-	
-//	if (user == null) {
-//		registerDto.setPassword(passwordEncoder.encode(registerDto.getPassword()));
-//		try {
-//			authMapper.register(registerDto);
-//			UserDto registeredUserDto = userService.findByEmail(registerDto.getEmail()).toUserDto();
-//			LoginResponseDto loginResponse = new LoginResponseDto();
-//			loginResponse.setCode(200);
-//			loginResponse.setMessage(Messages.REGISTER_SUCCESS);
-//			loginResponse.setUser(registeredUserDto);
-//			loginResponse.setToken(userAuthProvider.createToken(registerDto.getEmail()));
-//			return new ResponseEntity<Object>(loginResponse, HttpStatus.CREATED);
-//		} catch (Exception e) {
-//			return new ApiResponse(Messages.REGISTER_FAIL, HttpStatus.BAD_REQUEST).response();
-//		}
-//	} else {
-//		return new ApiResponse(Messages.REGISTER_MAIL_DUPLICATE, HttpStatus.CONFLICT).response();
-//	}
-//	
+
 	public ResponseEntity<Object> register(UsersDto dto){
 		Users user = userService.findByEmail(dto.getEmail());
 		if(user == null ) {
@@ -102,6 +84,5 @@ public class AuthService {
 		}else {
 			return new ApiResponse(Messages.REGISTER_MAIL_DUPLICATE, HttpStatus.CONFLICT).response();
 			}
-//		return new ApiResponse(Messages.PASSWORD_CHANGE_FAIL, HttpStatus.CONFLICT).response();
 	}
 }
