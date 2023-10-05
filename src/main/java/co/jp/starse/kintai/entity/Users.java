@@ -35,7 +35,25 @@ public class Users {
 		userDto.setUserId(userId);
 	    userDto.setUserName(userName);
 		userDto.setEmail(mail);
+		userDto.setPassword(password);
 		userDto.setAuthority(role);
+		userDto.setKubunId(kubunId); 
+		userDto.setUserNameKana(userNameKana);
+		userDto.setUserNameRyaku(userNameRyaku);
+		userDto.setUserImgPath(userImgPath);
+		userDto.setGroupId(groupId);
+		userDto.setShoninshaKubun(shoninshaKubun);
+		userDto.setBirthday(birthday);
+		userDto.setUserKubun(userKubun);
+		userDto.setNyushaDate(nyushaDate);
+		userDto.setStatus(status);
+		userDto.setRemainLeave(remainLeave);
+		userDto.setLastGetLeaveDt(lastGetLeaveDt);
+		userDto.setNextGetLeaveDt(nextGetLeaveDt);
+		userDto.setCreatedUserId(createdUserId);
+		userDto.setUpdatedUserId(updatedUserId);
+		userDto.setCreatedAt(createdAt);
+		userDto.setUpdatedAt(updatedAt);
 		return userDto;
 	}
 }

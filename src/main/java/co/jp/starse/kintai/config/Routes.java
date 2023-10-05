@@ -9,7 +9,7 @@ public class Routes {
 
 	// システム管理者 1 
 	static String Admin = "api/v1/admin/**";
-	static String REGISTER = "api/v1/admin/register";
+	static String REGISTER = "api/v1/admin/users";
 
 	// グループ主任 2 
 	static String Shoninsha = "api/v1/shonin_sha/**";
