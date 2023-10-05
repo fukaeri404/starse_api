@@ -64,39 +64,44 @@ public class AuthService {
 		return new ApiResponse(Messages.PASSWORD_CHANGE_FAIL, HttpStatus.CONFLICT).response();
 	}
 	
-	
-	public ResponseEntity<Object> register(SignUpDto dto){
-		Users user = userService.findByEmail(dto.getLogin());
+//	if (user == null) {
+//		registerDto.setPassword(passwordEncoder.encode(registerDto.getPassword()));
+//		try {
+//			authMapper.register(registerDto);
+//			UserDto registeredUserDto = userService.findByEmail(registerDto.getEmail()).toUserDto();
+//			LoginResponseDto loginResponse = new LoginResponseDto();
+//			loginResponse.setCode(200);
+//			loginResponse.setMessage(Messages.REGISTER_SUCCESS);
+//			loginResponse.setUser(registeredUserDto);
+//			loginResponse.setToken(userAuthProvider.createToken(registerDto.getEmail()));
+//			return new ResponseEntity<Object>(loginResponse, HttpStatus.CREATED);
+//		} catch (Exception e) {
+//			return new ApiResponse(Messages.REGISTER_FAIL, HttpStatus.BAD_REQUEST).response();
+//		}
+//	} else {
+//		return new ApiResponse(Messages.REGISTER_MAIL_DUPLICATE, HttpStatus.CONFLICT).response();
+//	}
+//	
+	public ResponseEntity<Object> register(UsersDto dto){
+		Users user = userService.findByEmail(dto.getEmail());
 		if(user == null ) {
 			user=new Users();
-			user.setKubunId(1);
-			user.setUserName("a");
-			user.setUserNameKana("a");
-			user.setUserNameRyaku("a");
-			user.setMail(dto.getLogin());
 			user.setPassword(passwordEncoder.encode(dto.getPassword()));
-			user.setUserImgPath("/");
-			user.setGroupId(1);
-			user.setRole(dto.getRole());
-			user.setShoninshaKubun("a");
-			user.setBirthday("1998-06-25");
-			user.setUserKubun("a");
-			user.setNyushaDate("1998-06-25");
-			user.setStatus("1");
-			user.setRemainLeave(2);
-			user.setCreatedUserId(1);
-			user.setUpdatedUserId(1);
-			authMapper.register(user);
-			
-			
-			UsersDto registeredUserDto = userService.findByEmail(dto.getLogin()).toUserDto();
-			LoginResponseDto loginResponse = new LoginResponseDto();
-			loginResponse.setCode(200);
-			loginResponse.setMessage(Messages.LOGIN_SUCCESS);
-			loginResponse.setToken(userAuthProvider.createToken(dto.getLogin()));
-			loginResponse.setUser(registeredUserDto);
-			return new ResponseEntity<Object>(null,HttpStatus.CREATED);
-		}
-		return new ApiResponse(Messages.PASSWORD_CHANGE_FAIL, HttpStatus.CONFLICT).response();
+			try {
+				authMapper.register(dto);
+				UsersDto registeredUserDto = userService.findByEmail(dto.getEmail()).toUserDto();
+				LoginResponseDto loginResponse = new LoginResponseDto();
+				loginResponse.setCode(200);
+				loginResponse.setMessage(Messages.REGISTER_SUCCESS);
+				loginResponse.setUser(registeredUserDto);
+				loginResponse.setToken(userAuthProvider.createToken(dto.getEmail()));
+				return new ResponseEntity<Object>(loginResponse, HttpStatus.CREATED);
+			} catch (Exception e) {
+				return new ApiResponse(Messages.REGISTER_FAIL, HttpStatus.BAD_REQUEST).response();
+			}
+		}else {
+			return new ApiResponse(Messages.REGISTER_MAIL_DUPLICATE, HttpStatus.CONFLICT).response();
+			}
+//		return new ApiResponse(Messages.PASSWORD_CHANGE_FAIL, HttpStatus.CONFLICT).response();
 	}
 }

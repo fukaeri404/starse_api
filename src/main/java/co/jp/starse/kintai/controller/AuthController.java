@@ -17,6 +17,7 @@ import co.jp.starse.kintai.config.UserAuthProvider;
 import co.jp.starse.kintai.dto.LoginDto;
 import co.jp.starse.kintai.dto.PwdChangeDto;
 import co.jp.starse.kintai.dto.SignUpDto;
+import co.jp.starse.kintai.dto.UsersDto;
 import co.jp.starse.kintai.entity.Users;
 import co.jp.starse.kintai.service.AuthService;
 import co.jp.starse.kintai.service.UserService;
@@ -38,8 +39,8 @@ public class AuthController {
 	@Autowired
 	PasswordEncoder passwordEncoder;
 	
-	@PostMapping("/admin/register")
-	public ResponseEntity<Object> register(@RequestBody SignUpDto dto) {
+	@PostMapping("/admin/users")
+	public ResponseEntity<Object> register(@RequestBody UsersDto dto) {
 		return loginService.register(dto);
 	}
 
