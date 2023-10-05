@@ -87,8 +87,6 @@ public class AuthService {
 			user.setCreatedUserId(1);
 			user.setUpdatedUserId(1);
 			authMapper.register(user);
-			
-			
 			UsersDto registeredUserDto = userService.findByEmail(dto.getLogin()).toUserDto();
 			LoginResponseDto loginResponse = new LoginResponseDto();
 			loginResponse.setCode(200);
