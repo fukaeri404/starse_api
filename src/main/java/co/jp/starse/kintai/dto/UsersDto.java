@@ -14,6 +14,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @Data
 public class UsersDto {
+	@JsonProperty("user_id")
 	private int userId;
 	private int kubunId;
 	@JsonProperty("user_name")
