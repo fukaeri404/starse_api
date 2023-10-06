@@ -11,7 +11,7 @@
 		<result property="mail" column="mail" />
 		<result property="password" column="password" />
 		<result property="userImgPath" column="user_img_path" />
-		<result property="groupId" column="group_id" />
+		<result property="groupId" column="gorup_id" />
 		<result property="role" column="role" />
 		<result property="shoninshaKubun" column="shoninsha_kubun" />
 		<result property="birthday" column="birthday" />
@@ -46,7 +46,7 @@
 		WHERE mail=#{mail}
 	</select>
 	
-	 <insert id="register">
+	 <insert id="register" >
 		INSERT into users(
 		kubun_id,
 		user_name,
@@ -62,10 +62,13 @@
 		nyusha_date,
 		status,
 		remain_leave,
+		last_get_leave_dt,
+		next_get_leave_dt,
 		created_user_id,
 		updated_user_id,
 		created_at,
-		updated_at)
+		updated_at
+		,gorup_id)
 		values(
 		#{kubunId},
 		#{userName},
@@ -81,10 +84,13 @@
 		#{nyushaDate},
 		#{status},
 		#{remainLeave},
+		#{lastGetLeaveDt},
+		#{nextGetLeaveDt},
 		#{createdUserId},
 		#{updatedUserId},
 		NOW(),
-		NOW()
+		NOW(),
+		#{groupId}
 		)
 	</insert>
 </mapper>

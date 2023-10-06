@@ -20,7 +20,6 @@ import com.auth0.jwt.interfaces.JWTVerifier;
 
 import co.jp.starse.kintai.dto.UsersDto;
 import co.jp.starse.kintai.repository.AuthMapper;
-import co.jp.starse.kintai.service.AuthService;
 import co.jp.starse.kintai.service.UserService;
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
@@ -86,7 +85,7 @@ public class UserAuthProvider {
 		UsersDto user = userService.findByEmail(decoded.getIssuer()).toUserDto();
 		// roles
 		List<SimpleGrantedAuthority> authorities = new ArrayList<>();
-		authorities.add(new SimpleGrantedAuthority(user.getAuthority()));
+		authorities.add(new SimpleGrantedAuthority(user.getRole()));
 		return new UsernamePasswordAuthenticationToken(user, null, authorities);
 	}
 

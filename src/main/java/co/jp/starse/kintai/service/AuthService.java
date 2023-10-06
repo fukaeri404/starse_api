@@ -65,18 +65,18 @@ public class AuthService {
 	}
 
 	public ResponseEntity<Object> register(UsersDto dto){
-		Users user = userService.findByEmail(dto.getEmail());
+		Users user = userService.findByEmail(dto.getMail());
 		if(user == null ) {
 			user=new Users();
-			user.setPassword(passwordEncoder.encode(dto.getPassword()));
+			dto.setPassword(passwordEncoder.encode(dto.getPassword()));
 			try {
 				authMapper.register(dto);
-				UsersDto registeredUserDto = userService.findByEmail(dto.getEmail()).toUserDto();
+				UsersDto registeredUserDto = userService.findByEmail(dto.getMail()).toUserDto();
 				LoginResponseDto loginResponse = new LoginResponseDto();
 				loginResponse.setCode(200);
 				loginResponse.setMessage(Messages.REGISTER_SUCCESS);
 				loginResponse.setUser(registeredUserDto);
-				loginResponse.setToken(userAuthProvider.createToken(dto.getEmail()));
+				loginResponse.setToken(userAuthProvider.createToken(dto.getMail()));
 				return new ResponseEntity<Object>(loginResponse, HttpStatus.CREATED);
 			} catch (Exception e) {
 				return new ApiResponse(Messages.REGISTER_FAIL, HttpStatus.BAD_REQUEST).response();

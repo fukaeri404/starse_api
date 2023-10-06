@@ -1,6 +1,7 @@
 package co.jp.starse.kintai.dto;
 
 import java.sql.Timestamp;
+import java.time.LocalDate;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -23,27 +24,27 @@ public class UsersDto {
 	private String userNameKana;
 	@JsonProperty("user_name_ryaku")
 	private String userNameRyaku;
-	private String email;
+	private String mail;
 	private String password;
 	@JsonProperty("user_img_path")
 	private String userImgPath;
 	@JsonProperty("group_id")
 	private int groupId;
-	private String authority;
+	private String role;
 	@JsonProperty("shoninsha_kubun")
 	private String shoninshaKubun;
-	private String birthday;
+	private LocalDate birthday;
 	@JsonProperty("user_kubun")
 	private String userKubun;
 	@JsonProperty("nyusha_date")
-	private String nyushaDate;
+	private LocalDate nyushaDate;
 	private String status;
 	@JsonProperty("remain_leave")
 	private int remainLeave;
 	@JsonProperty("last_get_leave_dt")
-	private String lastGetLeaveDt;
+	private LocalDate lastGetLeaveDt;
 	@JsonProperty("next_get_leave_dt")
-	private String nextGetLeaveDt;
+	private LocalDate nextGetLeaveDt;
 	@JsonProperty("created_user_id")
 	private int createdUserId;
 	@JsonProperty("updated_user_id")

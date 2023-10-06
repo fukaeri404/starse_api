@@ -1,6 +1,8 @@
 package co.jp.starse.kintai.entity;
 
 import java.sql.Timestamp;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 import co.jp.starse.kintai.dto.UsersDto;
 import lombok.Data;
@@ -31,25 +33,26 @@ public class Users {
 	private Timestamp updatedAt;
 
 	public UsersDto toUserDto() {
+		DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 		UsersDto userDto = new UsersDto();
 		userDto.setUserId(userId);
 	    userDto.setUserName(userName);
-		userDto.setEmail(mail);
+		userDto.setMail(mail);
 		userDto.setPassword(password);
-		userDto.setAuthority(role);
+		userDto.setRole(role);
 		userDto.setKubunId(kubunId); 
 		userDto.setUserNameKana(userNameKana);
 		userDto.setUserNameRyaku(userNameRyaku);
 		userDto.setUserImgPath(userImgPath);
 		userDto.setGroupId(groupId);
 		userDto.setShoninshaKubun(shoninshaKubun);
-		userDto.setBirthday(birthday);
+		userDto.setBirthday(LocalDate.parse(birthday, dateFormatter));
 		userDto.setUserKubun(userKubun);
-		userDto.setNyushaDate(nyushaDate);
+		userDto.setNyushaDate(LocalDate.parse(nyushaDate, dateFormatter));
 		userDto.setStatus(status);
 		userDto.setRemainLeave(remainLeave);
-		userDto.setLastGetLeaveDt(lastGetLeaveDt);
-		userDto.setNextGetLeaveDt(nextGetLeaveDt);
+		userDto.setLastGetLeaveDt(LocalDate.parse(lastGetLeaveDt, dateFormatter));
+		userDto.setNextGetLeaveDt(LocalDate.parse(nextGetLeaveDt, dateFormatter));
 		userDto.setCreatedUserId(createdUserId);
 		userDto.setUpdatedUserId(updatedUserId);
 		userDto.setCreatedAt(createdAt);
