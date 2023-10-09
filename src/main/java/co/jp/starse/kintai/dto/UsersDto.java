@@ -2,9 +2,12 @@ package co.jp.starse.kintai.dto;
 
 import java.sql.Timestamp;
 import java.time.LocalDate;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import co.jp.starse.kintai.utility.CommonUtils;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -53,4 +56,40 @@ public class UsersDto {
 	private Timestamp createdAt;
 	@JsonProperty("updated_at")
 	private Timestamp updatedAt;
+
+	public Map<String, Object> validate() {
+		Map<String, Object> errors = new LinkedHashMap<String, Object>();
+
+		if (CommonUtils.isEmpty(userName)) {
+			errors.put("userName", "お利用者名が必要です。");
+		}
+		
+		if (CommonUtils.isEmpty(userNameKana)) {
+			errors.put("userNameKana", "利用者名カナが必要です。");
+		} 
+		
+		if (CommonUtils.isDateEmpty(nyushaDate)) {
+			errors.put("nyushaDate", "おメールが必要です。");
+		} 
+		if (CommonUtils.isEmpty(password)) {
+			errors.put("password", "おパスワードが必要です。");
+		} 
+		
+		if (CommonUtils.isDateEmpty(birthday)) {
+			errors.put("birthday", "お生年月日が必要です。");
+			if (CommonUtils.calculateAge(birthday.toString()) < 16) {
+				errors.put("birthday", "生年月日は16歳以上が必要です。");
+			}
+		} 
+		
+		if (CommonUtils.isEmpty(shoninshaKubun)) {
+			errors.put("shoninshaKubun", "お承認者区分が必要です。");
+		} 
+		
+		if (CommonUtils.isEmpty(userKubun)) {
+			errors.put("userKubun", "お利用者区分が必要です。");
+		} 
+		return errors;
+	}
+
 }

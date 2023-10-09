@@ -97,6 +97,19 @@ public class CommonUtils {
 		}
 		return false;
 	}
+	
+	/**
+	 * 空白チェック
+	 * 
+	 * @param date
+	 * @return
+	 */
+	public static boolean isDateEmpty(LocalDate str) {
+		if (str == null || CommonData.BLANK.equals(str)) {
+			return true;
+		}
+		return false;
+	}
 
 	/**
 	 * split

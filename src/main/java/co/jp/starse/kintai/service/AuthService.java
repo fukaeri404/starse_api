@@ -65,16 +65,20 @@ public class AuthService {
 
 	public ResponseEntity<Object> register(UsersDto dto) {
 		Users user = userService.findByEmail(dto.getMail());
+		Map<String, Object> errors = dto.validate();
+		if (errors.size() > 0) {
+			return new ApiErrorResponse(errors, HttpStatus.UNAUTHORIZED, "Register is not successful!").response();
+		}
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		String role = null;
 		if (authentication != null && authentication.getPrincipal() instanceof UsersDto) {
-			UsersDto userDto=(UsersDto) authentication.getPrincipal();
-			role=userDto.getRole();
+			UsersDto userDto = (UsersDto) authentication.getPrincipal();
+			role = userDto.getRole();
 		}
 		if (user == null) {
 			user = new Users();
 			dto.setPassword(passwordEncoder.encode(dto.getPassword()));
-			if(Integer.parseInt(role)<=Integer.parseInt(dto.getRole())) {
+			if (Integer.parseInt(role) <= Integer.parseInt(dto.getRole())) {
 				try {
 					authMapper.register(dto);
 					UsersDto registeredUserDto = userService.findByEmail(dto.getMail()).toUserDto();
@@ -87,11 +91,10 @@ public class AuthService {
 				} catch (Exception e) {
 					return new ApiResponse(Messages.REGISTER_FAIL, HttpStatus.BAD_REQUEST).response();
 				}
-			}
-			else {
+			} else {
 				return new ApiResponse(Messages.UNAUTHORIZED, HttpStatus.UNAUTHORIZED).response();
 			}
-			
+
 		} else {
 			return new ApiResponse(Messages.REGISTER_MAIL_DUPLICATE, HttpStatus.CONFLICT).response();
 		}
