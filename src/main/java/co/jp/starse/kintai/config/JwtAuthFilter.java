@@ -3,6 +3,7 @@ package co.jp.starse.kintai.config;
 import java.io.IOException;
 
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.filter.OncePerRequestFilter;
 

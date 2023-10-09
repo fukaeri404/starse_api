@@ -39,7 +39,8 @@ public class AuthController {
 
 	@Autowired
 	PasswordEncoder passwordEncoder;
-
+    
+	//Register
 	@PostMapping("/admin/users")
 	public ResponseEntity<Object> register(@RequestParam("user_name") String userName,
 			@RequestParam("user_name_kana") String userNameKana, @RequestParam("user_name_ryaku") String userNameRyaKu,

@@ -1,12 +1,12 @@
 package co.jp.starse.kintai.service;
 
-import java.sql.Timestamp;
-import java.util.Date;
 import java.util.Map;
 
+import org.springframework.security.core.Authentication;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -15,7 +15,6 @@ import co.jp.starse.kintai.config.UserAuthProvider;
 import co.jp.starse.kintai.dto.LoginDto;
 import co.jp.starse.kintai.dto.LoginResponseDto;
 import co.jp.starse.kintai.dto.PwdChangeDto;
-import co.jp.starse.kintai.dto.SignUpDto;
 import co.jp.starse.kintai.dto.UsersDto;
 import co.jp.starse.kintai.entity.Users;
 import co.jp.starse.kintai.repository.AuthMapper;
@@ -29,13 +28,13 @@ public class AuthService {
 
 	@Autowired
 	PasswordEncoder passwordEncoder;
-	
+
 	@Autowired
 	AuthMapper authMapper;
 
 	@Autowired
 	UserAuthProvider userAuthProvider;
-	
+
 	public ResponseEntity<Object> login(LoginDto dto) {
 		Users user = userService.findByEmail(dto.getLogin());
 		Map<String, Object> errors = dto.validate();
@@ -53,8 +52,8 @@ public class AuthService {
 		}
 		return new ApiResponse(Messages.LOGIN_FAIL, HttpStatus.CONFLICT).response();
 	}
-	
-	public ResponseEntity<Object> pwdChange(PwdChangeDto dto){
+
+	public ResponseEntity<Object> pwdChange(PwdChangeDto dto) {
 		Users user = userService.findByEmail(dto.getLogin());
 		if (user != null && passwordEncoder.matches(dto.getOldPassword(), user.getPassword())) {
 			user.setPassword(passwordEncoder.encode(dto.getNewPassword()));
@@ -64,25 +63,37 @@ public class AuthService {
 		return new ApiResponse(Messages.PASSWORD_CHANGE_FAIL, HttpStatus.CONFLICT).response();
 	}
 
-	public ResponseEntity<Object> register(UsersDto dto){
+	public ResponseEntity<Object> register(UsersDto dto) {
 		Users user = userService.findByEmail(dto.getMail());
-		if(user == null ) {
-			user=new Users();
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		String role = null;
+		if (authentication != null && authentication.getPrincipal() instanceof UsersDto) {
+			UsersDto userDto=(UsersDto) authentication.getPrincipal();
+			role=userDto.getRole();
+		}
+		if (user == null) {
+			user = new Users();
 			dto.setPassword(passwordEncoder.encode(dto.getPassword()));
-			try {
-				authMapper.register(dto);
-				UsersDto registeredUserDto = userService.findByEmail(dto.getMail()).toUserDto();
-				LoginResponseDto loginResponse = new LoginResponseDto();
-				loginResponse.setCode(200);
-				loginResponse.setMessage(Messages.REGISTER_SUCCESS);
-				loginResponse.setUser(registeredUserDto);
-				loginResponse.setToken(userAuthProvider.createToken(dto.getMail()));
-				return new ResponseEntity<Object>(loginResponse, HttpStatus.CREATED);
-			} catch (Exception e) {
-				return new ApiResponse(Messages.REGISTER_FAIL, HttpStatus.BAD_REQUEST).response();
+			if(Integer.parseInt(role)<=Integer.parseInt(dto.getRole())) {
+				try {
+					authMapper.register(dto);
+					UsersDto registeredUserDto = userService.findByEmail(dto.getMail()).toUserDto();
+					LoginResponseDto loginResponse = new LoginResponseDto();
+					loginResponse.setCode(200);
+					loginResponse.setMessage(Messages.REGISTER_SUCCESS);
+					loginResponse.setUser(registeredUserDto);
+					loginResponse.setToken(userAuthProvider.createToken(dto.getMail()));
+					return new ResponseEntity<Object>(loginResponse, HttpStatus.CREATED);
+				} catch (Exception e) {
+					return new ApiResponse(Messages.REGISTER_FAIL, HttpStatus.BAD_REQUEST).response();
+				}
 			}
-		}else {
+			else {
+				return new ApiResponse(Messages.UNAUTHORIZED, HttpStatus.UNAUTHORIZED).response();
+			}
+			
+		} else {
 			return new ApiResponse(Messages.REGISTER_MAIL_DUPLICATE, HttpStatus.CONFLICT).response();
-			}
+		}
 	}
 }

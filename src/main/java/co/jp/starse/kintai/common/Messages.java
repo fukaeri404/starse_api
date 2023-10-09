@@ -3,6 +3,8 @@ package co.jp.starse.kintai.common;
 public class Messages {
 
 	static public String LOGIN_SUCCESS = "ログインが完成しました。";
+	
+	static public String UNAUTHORIZED = "不正アクセスです。";
 
 	static public String LOGIN_FAIL = "ユーザー名とパスワードが一致しません。";
 
