@@ -36,17 +36,19 @@ public class AuthService {
 	UserAuthProvider userAuthProvider;
 
 	public ResponseEntity<Object> login(LoginDto dto) {
-		Users user = userService.findByEmail(dto.getLogin());
+
 		Map<String, Object> errors = dto.validate();
 		if (errors.size() > 0) {
 			return new ApiErrorResponse(errors, HttpStatus.UNAUTHORIZED, "Login is not successful!").response();
 		}
 
+		Users user = userService.findByEmail(dto.getEmail());
+
 		if (user != null && passwordEncoder.matches(dto.getPassword(), user.getPassword())) {
 			LoginResponseDto loginResponse = new LoginResponseDto();
 			loginResponse.setCode(200);
 			loginResponse.setMessage(Messages.LOGIN_SUCCESS);
-			loginResponse.setToken(userAuthProvider.createToken(dto.getLogin()));
+			loginResponse.setToken(userAuthProvider.createToken(dto.getEmail()));
 			loginResponse.setUser(user.toUserDto());
 			return ResponseEntity.ok(loginResponse);
 		}

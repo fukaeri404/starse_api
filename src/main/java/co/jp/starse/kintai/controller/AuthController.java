@@ -86,7 +86,7 @@ public class AuthController {
 
 	@PostMapping("/forget-password")
 	public ResponseEntity<Object> forgetPassword(@RequestBody LoginDto dto) {
-		String token = userAuthProvider.createToken(dto.getLogin() + "<<~>>" + dto.getPassword());
+		String token = userAuthProvider.createToken(dto.getEmail() + "<<~>>" + dto.getPassword());
 		String link = "http://localhost:8080/api/v1/confirm-password-reset/" + token;
 		return new ResponseEntity<Object>(link, HttpStatus.OK);
 	}

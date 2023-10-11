@@ -14,15 +14,15 @@ import lombok.NoArgsConstructor;
 @Builder
 @Data
 public class LoginDto {
-	private String login;
+	private String email;
 	private String password;
 	
 	public Map<String,Object> validate(){
 		Map<String,Object> errors = new LinkedHashMap<String, Object>();
 		
-		if(CommonUtils.isEmpty(login)) {
+		if(CommonUtils.isEmpty(email)) {
 			errors.put("email", "メールアドレスが必要です。");
-		}else if (!CommonUtils.isValidEmail(login)) {
+		}else if (!CommonUtils.isValidEmail(email)) {
 			errors.put("email", "メールアドレスのフォーマットが間違っています。");
 		}
 		
