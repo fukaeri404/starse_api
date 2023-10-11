@@ -7,5 +7,4 @@ import co.jp.starse.kintai.entity.Users;
 
 @Mapper
 public interface UsersRepository {
-	
 }
