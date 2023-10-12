@@ -5,6 +5,7 @@ import java.time.LocalDate;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import co.jp.starse.kintai.utility.CommonUtils;
@@ -36,7 +37,7 @@ public class UsersDto {
 	private String role;
 	@JsonProperty("shoninsha_kubun")
 	private String shoninshaKubun;
-	private LocalDate birthday;
+	private String birthday;
 	@JsonProperty("user_kubun")
 	private String userKubun;
 	@JsonProperty("nyusha_date")
@@ -55,6 +56,7 @@ public class UsersDto {
 	@JsonProperty("created_at")
 	private Timestamp createdAt;
 	@JsonProperty("updated_at")
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'")
 	private Timestamp updatedAt;
 
 	public Map<String, Object> validate() {
@@ -75,7 +77,7 @@ public class UsersDto {
 			errors.put("password", "おパスワードが必要です。");
 		} 
 		
-		if (CommonUtils.isDateEmpty(birthday)) {
+		if (CommonUtils.isEmpty(birthday)) {
 			errors.put("birthday", "お生年月日が必要です。");
 			if (CommonUtils.calculateAge(birthday.toString()) < 16) {
 				errors.put("birthday", "生年月日は16歳以上が必要です。");

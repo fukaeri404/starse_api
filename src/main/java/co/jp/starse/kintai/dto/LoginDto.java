@@ -8,15 +8,17 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import co.jp.starse.kintai.utility.StdRequestDto;
 
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
 @Data
-public class LoginDto {
+public class LoginDto implements StdRequestDto {
 	private String email;
 	private String password;
 	
+	@Override
 	public Map<String,Object> validate(){
 		Map<String,Object> errors = new LinkedHashMap<String, Object>();
 		

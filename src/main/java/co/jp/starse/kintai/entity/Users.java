@@ -46,7 +46,7 @@ public class Users {
 		userDto.setUserImgPath(userImgPath);
 		userDto.setGroupId(groupId);
 		userDto.setShoninshaKubun(shoninshaKubun);
-		userDto.setBirthday(LocalDate.parse(birthday, dateFormatter));
+		userDto.setBirthday(this.birthday);
 		userDto.setUserKubun(userKubun);
 		userDto.setNyushaDate(LocalDate.parse(nyushaDate, dateFormatter));
 		userDto.setStatus(status);

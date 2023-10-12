@@ -62,7 +62,7 @@ public class AuthController {
 		dto.setMail(mail);
 		dto.setPassword(password);
 		dto.setUserImgPath(userImgPath);
-		dto.setBirthday(LocalDate.parse(birthday, dateFormatter));
+		dto.setBirthday(birthday);
 		dto.setShoninshaKubun(shoninshaKubun);
 		dto.setUserKubun(userKubun);
 		dto.setLastGetLeaveDt(LocalDate.parse(lastGetLeaveDt, dateFormatter));
