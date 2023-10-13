@@ -17,6 +17,7 @@ public class UserService {
 	}
 	
 	public void changePassword(Users user) {
+		System.out.println(user);
 		authRepository.changePassword(user.getPassword(), user.getMail());
 	}
 }

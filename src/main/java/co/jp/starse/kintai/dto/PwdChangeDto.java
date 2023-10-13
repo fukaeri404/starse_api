@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @Data
 public class PwdChangeDto {
-	private String login;
+	private String email;
 	@JsonProperty("old_password")
 	private String oldPassword;
 	@JsonProperty("new_password")

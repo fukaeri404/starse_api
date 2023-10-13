@@ -53,7 +53,6 @@ public class AuthController {
 			@RequestParam("status") String status, @RequestParam("created_user_id") int createdUserId,
 			@RequestParam("updated_user_id") int updatedUserId) {
 		UsersDto dto = new UsersDto();
-		DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 		dto.setUserName(userName);
 		dto.setUserNameKana(userNameKana);
 		dto.setUserNameRyaku(userNameRyaKu);
@@ -65,9 +64,9 @@ public class AuthController {
 		dto.setBirthday(birthday);
 		dto.setShoninshaKubun(shoninshaKubun);
 		dto.setUserKubun(userKubun);
-		dto.setLastGetLeaveDt(LocalDate.parse(lastGetLeaveDt, dateFormatter));
-		dto.setNextGetLeaveDt(LocalDate.parse(nextGetLeaveDt, dateFormatter));
-		dto.setNyushaDate(LocalDate.parse(nyushaDate, dateFormatter));
+		dto.setLastGetLeaveDt(lastGetLeaveDt);
+		dto.setNextGetLeaveDt(nextGetLeaveDt);
+		dto.setNyushaDate(nyushaDate);
 		dto.setStatus(status);
 		dto.setCreatedUserId(createdUserId);
 		dto.setUpdatedUserId(updatedUserId);

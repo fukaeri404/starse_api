@@ -12,7 +12,7 @@ public interface AuthMapper {
 	
 	public Users getUserByEmail(@Param("mail") String mail);
 	
-	public void changePassword(@Param("mail")String mail,@Param("password") String password);
+	public void changePassword(@Param("password") String password,@Param("mail")String mail);
 	
-	public void register(UsersDto dto);
+	public void register(Users dto);
 }

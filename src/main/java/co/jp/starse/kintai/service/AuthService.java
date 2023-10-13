@@ -55,22 +55,12 @@ public class AuthService {
 		return new ApiResponse(Messages.LOGIN_FAIL, HttpStatus.CONFLICT).response();
 	}
 
-	public ResponseEntity<Object> pwdChange(PwdChangeDto dto) {
-		Users user = userService.findByEmail(dto.getLogin());
-		if (user != null && passwordEncoder.matches(dto.getOldPassword(), user.getPassword())) {
-			user.setPassword(passwordEncoder.encode(dto.getNewPassword()));
-			userService.changePassword(user);
-			return new ApiResponse(Messages.PASSWORD_CHANGE_SUCCESS, HttpStatus.OK).response();
-		}
-		return new ApiResponse(Messages.PASSWORD_CHANGE_FAIL, HttpStatus.CONFLICT).response();
-	}
-
 	public ResponseEntity<Object> register(UsersDto dto) {
-		Users user = userService.findByEmail(dto.getMail());
 		Map<String, Object> errors = dto.validate();
 		if (errors.size() > 0) {
 			return new ApiErrorResponse(errors, HttpStatus.UNAUTHORIZED, "Register is not successful!").response();
 		}
+		Users user = userService.findByEmail(dto.getMail());
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		String role = null;
 		if (authentication != null && authentication.getPrincipal() instanceof UsersDto) {
@@ -82,7 +72,7 @@ public class AuthService {
 			dto.setPassword(passwordEncoder.encode(dto.getPassword()));
 			if (Integer.parseInt(role) <= Integer.parseInt(dto.getRole())) {
 				try {
-					authMapper.register(dto);
+					authMapper.register(dto.toUser());
 					UsersDto registeredUserDto = userService.findByEmail(dto.getMail()).toUserDto();
 					LoginResponseDto loginResponse = new LoginResponseDto();
 					loginResponse.setCode(200);
@@ -101,4 +91,15 @@ public class AuthService {
 			return new ApiResponse(Messages.REGISTER_MAIL_DUPLICATE, HttpStatus.CONFLICT).response();
 		}
 	}
+
+	public ResponseEntity<Object> pwdChange(PwdChangeDto dto) {
+		Users user = userService.findByEmail(dto.getEmail());
+		if (user != null && passwordEncoder.matches(dto.getOldPassword(), user.getPassword())) {
+			user.setPassword(passwordEncoder.encode(dto.getNewPassword()));
+			userService.changePassword(user);
+			return new ApiResponse(Messages.PASSWORD_CHANGE_SUCCESS, HttpStatus.OK).response();
+		}
+		return new ApiResponse(Messages.PASSWORD_CHANGE_FAIL, HttpStatus.CONFLICT).response();
+	}
+
 }
