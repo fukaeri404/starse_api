@@ -3,6 +3,7 @@ package co.jp.starse.kintai.entity;
 import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.Date;
 
 import co.jp.starse.kintai.dto.UsersDto;
 import lombok.Data;
@@ -46,7 +47,7 @@ public class Users {
 		userDto.setUserImgPath(userImgPath);
 		userDto.setGroupId(groupId);
 		userDto.setShoninshaKubun(shoninshaKubun);
-		userDto.setBirthday(this.birthday);
+		userDto.setBirthday(birthday);
 		userDto.setUserKubun(userKubun);
 		userDto.setNyushaDate(LocalDate.parse(nyushaDate, dateFormatter));
 		userDto.setStatus(status);
