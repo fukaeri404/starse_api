@@ -22,6 +22,7 @@ import co.jp.starse.kintai.dto.UsersDto;
 import co.jp.starse.kintai.repository.AuthMapper;
 import co.jp.starse.kintai.service.UserService;
 import jakarta.annotation.PostConstruct;
+import lombok.Data;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
@@ -106,4 +107,29 @@ public class UserAuthProvider {
 			authMapper.changePassword(password, email);	
 		}
 	}
+	
+	/*
+	 * Auto User
+	 * @param Authentication auth
+	 */
+	public AuthUser getAuthUser(Authentication auth) {
+		AuthUser authUser = new AuthUser();
+		UsersDto users = (UsersDto) auth.getPrincipal();
+		authUser.setId(users.getUserId());
+		authUser.setMail(users.getMail());
+		authUser.setName(users.getUserName());
+		authUser.setGroupId(users.getGroupId());
+		authUser.setRole(users.getRole());
+		return authUser;
+	}
+	
+	@Data
+	public class AuthUser{
+		int id;
+		String mail;
+		String role;
+		String name;
+		int groupId;
+	}
+	
 }
