@@ -10,9 +10,9 @@ import lombok.Data;
 @Data
 public class ApiResponse {
 
+	private final HttpStatus status;
 	private final String message;
 	private final int code;
-	private final HttpStatus status;
 	private final Object data;
 	
 	// 3 argu constructor
@@ -44,7 +44,7 @@ public class ApiResponse {
 		this.data = data;
 	}
 	
-	// 3 argu constructor
+	// 2 argu constructor
 
 	public ApiResponse(String message, HttpStatus status) {
 		this.code = status.value();
