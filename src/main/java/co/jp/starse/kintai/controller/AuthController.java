@@ -47,7 +47,7 @@ public class AuthController {
 			@RequestParam("group_id") int groupId,
 			@RequestParam("role") String role, @RequestParam("mail") String mail,
 			@RequestParam("password") String password, @RequestParam("user_image_path") String userImgPath,
-			@RequestParam("birthday") String birthday, @RequestParam("shoninsha_kubun") String shoninshaKubun,
+			@RequestParam("birthday") String birthday,
 			@RequestParam("user_kubun") String userKubun, @RequestParam("last_get_leave_dt") String lastGetLeaveDt,
 			@RequestParam("next_get_leave_dt") String nextGetLeaveDt, @RequestParam("nyusha_date") String nyushaDate,
 			@RequestParam("status") String status, @RequestParam("created_user_id") int createdUserId,
@@ -63,7 +63,6 @@ public class AuthController {
 		dto.setPassword(password);
 		dto.setUserImgPath(userImgPath);
 		dto.setBirthday(birthday);
-		dto.setShoninshaKubun(shoninshaKubun);
 		dto.setUserKubun(userKubun);
 		dto.setLastGetLeaveDt(LocalDate.parse(lastGetLeaveDt, dateFormatter));
 		dto.setNextGetLeaveDt(LocalDate.parse(nextGetLeaveDt, dateFormatter));

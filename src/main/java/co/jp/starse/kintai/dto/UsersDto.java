@@ -21,7 +21,7 @@ import lombok.NoArgsConstructor;
 public class UsersDto {
 	@JsonProperty("user_id")
 	private int userId;
-	private int kubunId;
+	private int kubunDetailId;
 	@JsonProperty("user_name")
 	private String userName;
 	@JsonProperty("user_name_kana")
@@ -35,8 +35,6 @@ public class UsersDto {
 	@JsonProperty("group_id")
 	private int groupId;
 	private String role;
-	@JsonProperty("shoninsha_kubun")
-	private String shoninshaKubun;
 	private String birthday;
 	@JsonProperty("user_kubun")
 	private String userKubun;
@@ -82,11 +80,7 @@ public class UsersDto {
 			if (CommonUtils.calculateAge(birthday.toString()) < 16) {
 				errors.put("birthday", "生年月日は16歳以上が必要です。");
 			}
-		} 
-		
-		if (CommonUtils.isEmpty(shoninshaKubun)) {
-			errors.put("shoninshaKubun", "お承認者区分が必要です。");
-		} 
+		}
 		
 		if (CommonUtils.isEmpty(userKubun)) {
 			errors.put("userKubun", "お利用者区分が必要です。");

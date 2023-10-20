@@ -15,6 +15,8 @@ public class SalaryController {
 	@Autowired
 	SalaryService salaryService;
 	
+	// localhost:8080/api/v1/user/user-salary
+	
 	@GetMapping("/user-salary")
 	public ResponseEntity<Object> example() {
 		

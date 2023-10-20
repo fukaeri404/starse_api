@@ -15,6 +15,8 @@ public class UserNotificationController {
 	@Autowired
 	UserNotificationService userNotificationService;
 	
+	// localhost:8080/api/v1/user/user-noti
+	
 	@GetMapping("/user-noti")
 	public ResponseEntity<Object> example() {
 		

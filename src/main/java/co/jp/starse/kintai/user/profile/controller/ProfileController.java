@@ -14,6 +14,8 @@ public class ProfileController {
 	@Autowired
 	ProfileService profileService;
 	
+	// localhost:8080/api/v1/user/user-profile
+	
 	@GetMapping("/user-profile")
 	public ResponseEntity<Object> example() {
 		

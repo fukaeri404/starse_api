@@ -10,7 +10,7 @@ import lombok.Data;
 @Data
 public class Users {
 	private int userId;
-	private int kubunId;
+	private int kubunDetailId;
 	private String userName;
 	private String userNameKana;
 	private String userNameRyaku;
@@ -19,7 +19,6 @@ public class Users {
 	private String userImgPath;
 	private int groupId;
 	private String role;
-	private String shoninshaKubun;
 	private String birthday;
 	private String userKubun;
 	private String nyushaDate;
@@ -40,12 +39,11 @@ public class Users {
 		userDto.setMail(mail);
 		userDto.setPassword(password);
 		userDto.setRole(role);
-		userDto.setKubunId(kubunId); 
+		userDto.setKubunDetailId(kubunDetailId); 
 		userDto.setUserNameKana(userNameKana);
 		userDto.setUserNameRyaku(userNameRyaku);
 		userDto.setUserImgPath(userImgPath);
 		userDto.setGroupId(groupId);
-		userDto.setShoninshaKubun(shoninshaKubun);
 		userDto.setBirthday(birthday);
 		userDto.setUserKubun(userKubun);
 		userDto.setNyushaDate(LocalDate.parse(nyushaDate, dateFormatter));

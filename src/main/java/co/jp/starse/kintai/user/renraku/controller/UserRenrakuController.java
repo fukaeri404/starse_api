@@ -15,6 +15,8 @@ public class UserRenrakuController {
 	@Autowired
 	UserRenrakuService userRenrakuService;
 	
+	// localhost:8080/api/v1/user/user-renraku
+	
 	@GetMapping("/user-renraku")
 	public ResponseEntity<Object> example() {
 		
