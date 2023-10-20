@@ -3,13 +3,14 @@ package co.jp.starse.kintai.entity;
 import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+
 import co.jp.starse.kintai.dto.UsersDto;
 import lombok.Data;
 
 @Data
 public class Users {
 	private int userId;
-	private int kubunId;
+	private int kubunDetailId;
 	private String userName;
 	private String userNameKana;
 	private String userNameRyaku;
@@ -18,8 +19,7 @@ public class Users {
 	private String userImgPath;
 	private int groupId;
 	private String role;
-	private String shoninshaKubun;
-	private LocalDate birthday;
+	private String birthday;
 	private String userKubun;
 	private LocalDate nyushaDate;
 	private String status;
@@ -39,13 +39,12 @@ public class Users {
 		userDto.setMail(mail);
 		userDto.setPassword(password);
 		userDto.setRole(role);
-		userDto.setKubunId(kubunId); 
+		userDto.setKubunDetailId(kubunDetailId); 
 		userDto.setUserNameKana(userNameKana);
 		userDto.setUserNameRyaku(userNameRyaku);
 		userDto.setUserImgPath(userImgPath);
 		userDto.setGroupId(groupId);
-		userDto.setShoninshaKubun(shoninshaKubun);
-		userDto.setBirthday(birthday.format(dateFormatter));
+		userDto.setBirthday(birthday);
 		userDto.setUserKubun(userKubun);
 		userDto.setNyushaDate(nyushaDate.format(dateFormatter));
 		userDto.setStatus(status);

@@ -12,7 +12,7 @@ public class Routes {
 	static String REGISTER = "api/v1/admin/users";
 
 	// グループ主任 2 
-	static String Shoninsha = "api/v1/shonin_sha/**";
+	static String Shoninsha = "api/v1/shunin/**";
 
 
 	// 一般社員３

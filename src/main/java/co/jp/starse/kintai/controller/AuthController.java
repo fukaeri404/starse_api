@@ -42,15 +42,23 @@ public class AuthController {
     
 	//Register
 	@PostMapping("/admin/users")
-	public ResponseEntity<Object> register(@RequestParam("user_name") String userName,
-			@RequestParam("user_name_kana") String userNameKana, @RequestParam("user_name_ryaku") String userNameRyaKu,
+	public ResponseEntity<Object> register(
+			@RequestParam("user_name") String userName,
+			@RequestParam("user_name_kana") String userNameKana, 
+			@RequestParam("user_name_ryaku") String userNameRyaKu,
 			@RequestParam("group_id") int groupId,
-			@RequestParam("role") String role, @RequestParam("mail") String mail,
-			@RequestParam("password") String password, @RequestParam("user_image_path") String userImgPath,
-			@RequestParam("birthday") String birthday, @RequestParam("shoninsha_kubun") String shoninshaKubun,
-			@RequestParam("user_kubun") String userKubun, @RequestParam("last_get_leave_dt") String lastGetLeaveDt,
-			@RequestParam("next_get_leave_dt") String nextGetLeaveDt, @RequestParam("nyusha_date") String nyushaDate,
-			@RequestParam("status") String status, @RequestParam("created_user_id") int createdUserId,
+			@RequestParam("role") String role, 
+			@RequestParam("mail") String mail,
+			@RequestParam("password") String password, 
+			@RequestParam("user_image_path") String userImgPath,
+			@RequestParam("birthday") String birthday, 
+			@RequestParam("shoninsha_kubun") String shoninshaKubun,
+			@RequestParam("user_kubun") String userKubun, 
+			@RequestParam("last_get_leave_dt") String lastGetLeaveDt,
+			@RequestParam("next_get_leave_dt") String nextGetLeaveDt, 
+			@RequestParam("nyusha_date") String nyushaDate,
+			@RequestParam("status") String status, 
+			@RequestParam("created_user_id") int createdUserId,
 			@RequestParam("updated_user_id") int updatedUserId) {
 		UsersDto dto = new UsersDto();
 		dto.setUserName(userName);
@@ -62,7 +70,6 @@ public class AuthController {
 		dto.setPassword(password);
 		dto.setUserImgPath(userImgPath);
 		dto.setBirthday(birthday);
-		dto.setShoninshaKubun(shoninshaKubun);
 		dto.setUserKubun(userKubun);
 		dto.setLastGetLeaveDt(lastGetLeaveDt);
 		dto.setNextGetLeaveDt(nextGetLeaveDt);

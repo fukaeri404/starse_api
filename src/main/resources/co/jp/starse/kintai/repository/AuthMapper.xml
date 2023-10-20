@@ -4,7 +4,7 @@
 	<resultMap type="co.jp.starse.kintai.entity.Users"
 		id="userMap">
 		<id property="userId" column="user_id"></id>
-		<result property="kubunId" column="kubun_id" />
+		<result property="kubunDetailId" column="kubun_detail_id" />
 		<result property="userName" column="user_name" />
 		<result property="userNameKana" column="user_name_kana" />
 		<result property="userNameRyaku" column="user_name_ryaku" />
@@ -13,7 +13,6 @@
 		<result property="userImgPath" column="user_img_path" />
 		<result property="groupId" column="gorup_id" />
 		<result property="role" column="role" />
-		<result property="shoninshaKubun" column="shoninsha_kubun" />
 		<result property="birthday" column="birthday" />
 		<result property="userKubun" column="user_kubun" />
 		<result property="nyushaDate" column="nyusha_date" />

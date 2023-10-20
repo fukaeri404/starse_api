@@ -23,6 +23,7 @@ public class UserAuthenticationEntryPoint implements AuthenticationEntryPoint {
 
 	private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
 
+	@SuppressWarnings("deprecation")
 	@Override
 	public void commence(HttpServletRequest request, HttpServletResponse response,
 			AuthenticationException authException) throws IOException, ServletException {

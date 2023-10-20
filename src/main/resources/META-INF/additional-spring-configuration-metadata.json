@@ -1,9 +1,27 @@
-{
-	"properties": [
-		{
-			"name": "api.base-path",
-			"type": "java.lang.String",
-			"description": "A description for 'api.base-path'"
-		}
-	]
-}
+{"properties": [
+  {
+    "name": "api.base-path",
+    "type": "java.lang.String",
+    "description": "A description for 'api.base-path'"
+  },
+  {
+    "name": "api.base-path-admin",
+    "type": "java.lang.String",
+    "description": "A description for 'api.base-path-admin'"
+  },
+  {
+    "name": "security.jwt.token.secret-key",
+    "type": "java.lang.String",
+    "description": "A description for 'security.jwt.token.secret-key'"
+  },
+  {
+    "name": "api.base-path-user",
+    "type": "java.lang.String",
+    "description": "A description for 'api.base-path-user'"
+  },
+  {
+    "name": "api.base-path-shoninsha",
+    "type": "java.lang.String",
+    "description": "A description for 'api.base-path-shoninsha'"
+  }
+]}
