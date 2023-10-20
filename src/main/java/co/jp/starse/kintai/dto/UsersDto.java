@@ -99,13 +99,11 @@ public class UsersDto {
 		user.setMail(mail);
 		user.setPassword(password);
 		user.setRole(role);
-		user.setKubunId(kubunId); 
 		user.setUserNameKana(userNameKana);
 		user.setUserNameRyaku(userNameRyaku);
 		user.setUserImgPath(userImgPath);
 		user.setGroupId(groupId);
-		user.setShoninshaKubun(shoninshaKubun);
-		user.setBirthday(LocalDate.parse(birthday,dateFormatter));
+		user.setBirthday(birthday);
 		user.setUserKubun(userKubun);
 		user.setNyushaDate(LocalDate.parse(nyushaDate,dateFormatter));
 		user.setStatus(status);
