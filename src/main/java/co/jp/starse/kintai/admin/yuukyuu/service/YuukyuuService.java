@@ -5,17 +5,17 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import co.jp.starse.kintai.admin.payslip.repository.PayslipRepository;
+import co.jp.starse.kintai.admin.yuukyuu.repository.YuukyuuRepository;
 import co.jp.starse.kintai.response.ApiResponse;
 
 @Service
 public class YuukyuuService {
 	
 	@Autowired
-	PayslipRepository payslipRepository;
+	YuukyuuRepository yuukyuuRepository;
 	
 	public ResponseEntity<Object> getAllUser() {
-		return new ApiResponse(HttpStatus.OK,"アカウントデータ取得は完了しました。",payslipRepository.getAllUser()).response();
+		return new ApiResponse(HttpStatus.OK,"アカウントデータ取得は完了しました。",yuukyuuRepository.getAllUser()).response();
 	}
 
 }
