@@ -15,6 +15,10 @@ public class AccountService {
 	AccountRepository accountRepository;
 
 	public ResponseEntity<Object> getAllUser() {
-		return new ApiResponse(HttpStatus.OK, "アカウントデータ取得は完了しました。", accountRepository.getAllUser()).response();
+		return new ApiResponse(
+				HttpStatus.OK, 
+				"アカウントデータ取得は完了しました。", 
+				accountRepository.getAllUser()
+		).response();
 	}
 }

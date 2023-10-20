@@ -15,6 +15,8 @@ public class NotificationController {
 	@Autowired
 	ShuninNotificationService shuninNotificationService;
 	
+	// localhost:8080/api/v1/shunin/shunin-notification
+	
 	@GetMapping("/shunin-notification")
 	public ResponseEntity<Object> example() {
 		

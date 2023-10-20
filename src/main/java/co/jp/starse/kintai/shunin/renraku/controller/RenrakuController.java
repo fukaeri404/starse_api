@@ -14,6 +14,8 @@ public class RenrakuController {
 	@Autowired
 	RenrakuService renrakuService;
 	
+	// localhost:8080/api/v1/shunin/shunin-renraku
+	
 	@GetMapping("/shunin-renraku")
 	public ResponseEntity<Object> example() {
 		
