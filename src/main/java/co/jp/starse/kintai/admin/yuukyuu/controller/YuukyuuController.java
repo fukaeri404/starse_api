@@ -15,6 +15,7 @@ public class YuukyuuController {
 	@Autowired
 	YuukyuuService yuukyuuService;
 
+	// API CALL : localhost:8080/api/v1/admin/admin-yuukyuu
 	@GetMapping("/admin-yuukyuu")
 	public ResponseEntity<Object> example() {
 

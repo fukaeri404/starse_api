@@ -15,6 +15,8 @@ public class AccountController {
 	@Autowired
 	AccountService accountService;
 	
+	// API CALL : localhost:8080/api/v1/admin/admin-account
+	
 	@GetMapping("/admin-account")
 	public ResponseEntity<Object> example() {
 		

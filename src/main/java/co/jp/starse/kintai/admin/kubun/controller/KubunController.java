@@ -13,10 +13,12 @@ import co.jp.starse.kintai.admin.kubun.service.KubunService;
 public class KubunController {
 	@Autowired
 	KubunService kubunService;
-	
+
+	// API CALL : localhost:8080/api/v1/admin/admin-kubun
+
 	@GetMapping("/admin-kubun")
 	public ResponseEntity<Object> example() {
-		
+
 		return kubunService.getAllUser();
 	}
 }

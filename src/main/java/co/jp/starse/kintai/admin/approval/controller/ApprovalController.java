@@ -15,6 +15,8 @@ public class ApprovalController {
 	@Autowired
 	ApprovalService approvalService;
 	
+	// API CALL : localhost:8080/api/v1/admin/admin-approval
+	
 	@GetMapping("/admin-approval")
 	public ResponseEntity<Object> example() {
 		

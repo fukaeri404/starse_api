@@ -15,6 +15,8 @@ public class GroupController {
 	@Autowired
 	GroupService groupService;
 
+	// API CALL : localhost:8080/api/v1/admin/admin-group
+
 	@GetMapping("/admin-group")
 	public ResponseEntity<Object> example() {
 

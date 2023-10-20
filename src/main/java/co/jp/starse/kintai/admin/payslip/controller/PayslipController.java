@@ -15,6 +15,8 @@ public class PayslipController {
 	@Autowired
 	PayslipService payslipService;
 
+	// API CALL : localhost:8080/api/v1/admin/admin-payslip
+
 	@GetMapping("/admin-payslip")
 	public ResponseEntity<Object> example() {
 
