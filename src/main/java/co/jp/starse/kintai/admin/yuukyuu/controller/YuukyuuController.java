@@ -15,7 +15,7 @@ public class YuukyuuController {
 	@Autowired
 	YuukyuuService yuukyuuService;
 
-	@GetMapping("/admin-kinmu")
+	@GetMapping("/admin-yuukyuu")
 	public ResponseEntity<Object> example() {
 
 		return yuukyuuService.getAllUser();

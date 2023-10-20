@@ -15,7 +15,7 @@ public class PayslipController {
 	@Autowired
 	PayslipService payslipService;
 
-	@GetMapping("/admin-kinmu")
+	@GetMapping("/admin-payslip")
 	public ResponseEntity<Object> example() {
 
 		return payslipService.getAllUser();

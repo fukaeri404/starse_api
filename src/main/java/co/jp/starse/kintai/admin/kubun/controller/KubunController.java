@@ -6,17 +6,17 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import co.jp.starse.kintai.admin.kinmu.service.KinmuService;
+import co.jp.starse.kintai.admin.kubun.service.KubunService;
 
 @RequestMapping("${api.base-path-admin}")
 @RestController
 public class KubunController {
 	@Autowired
-	KinmuService kinmuService;
+	KubunService kubunService;
 	
-	@GetMapping("/admin-kinmu")
+	@GetMapping("/admin-kubun")
 	public ResponseEntity<Object> example() {
 		
-		return kinmuService.getAllUser();
+		return kubunService.getAllUser();
 	}
 }
