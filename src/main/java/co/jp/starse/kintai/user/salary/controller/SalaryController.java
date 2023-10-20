@@ -6,7 +6,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import co.jp.starse.kintai.user.renraku.service.UserRenrakuService;
 import co.jp.starse.kintai.user.salary.service.SalaryService;
 
 @RequestMapping("${api.base-path-user}")

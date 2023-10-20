@@ -3,7 +3,6 @@ package co.jp.starse.kintai.entity;
 import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.Date;
 
 import co.jp.starse.kintai.dto.UsersDto;
 import lombok.Data;
