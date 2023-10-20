@@ -1,20 +1,20 @@
-package co.jp.starse.kintai.admin.kinmu.service;
+package co.jp.starse.kintai.admin.kubun.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import co.jp.starse.kintai.admin.kinmu.repository.KinmuRepository;
+import co.jp.starse.kintai.admin.kubun.repository.KubunRepository;
 import co.jp.starse.kintai.response.ApiResponse;
 
 @Service
-public class KinmuService {
+public class KubunService {
 
 	@Autowired
-	KinmuRepository kinmuRepository;
+	KubunRepository kubunRepository;
 
 	public ResponseEntity<Object> getAllUser() {
-		return new ApiResponse(HttpStatus.OK, "アカウントデータ取得は完了しました。", kinmuRepository.getAllUser()).response();
+		return new ApiResponse(HttpStatus.OK, "アカウントデータ取得は完了しました。", kubunRepository.getAllUser()).response();
 	}
 }
