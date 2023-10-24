@@ -31,4 +31,46 @@
 		SELECT * FROM users
 	</select>
 	
+	<resultMap type="co.jp.starse.kintai.admin.kinmu.entity.KinmuBasicEntity"
+		id="kinmuBasicMap">
+		<id property="basicKinmuInfoId" column="basic_kinmu_info_id"></id>
+		<result property="startTime" column="start_time" />
+		<result property="endTime" column="end_time" />
+		<result property="kyukeiJikan" column="kyukei_jikan" />
+		<result property="basicKinmuTime" column="basic_kinmu_time" />
+		<result property="shoteigaiTime" column="shoteigai_time" />
+		<result property="createdUserId" column="created_user_id" />
+		<result property="updatedUserId" column="updated_user_id" />
+		<result property="createdAt" column="created_at" />
+		<result property="updatedAt" column="updated_at" />
+	</resultMap>
+	
+	<insert id="register" parameterType="co.jp.starse.kintai.admin.kinmu.entity.KinmuBasicEntity">
+		INSERT INTO 
+			basic_kinmu_info 
+			(
+			 start_time,
+			 end_time,
+			 kyukei_jikan,
+			 basic_kinmu_time,
+			 shoteigai_time,
+			 created_user_id,
+			 updated_user_id,
+			 created_at,
+			 updated_at
+			 ) 
+		VALUES 
+			(
+			 #{startTime},
+			 #{endTime},
+			 #{kyukeiJikan},
+			 #{basicKinmuTime},
+			 #{shoteigaiTime},
+			 #{createdUserId},
+			 #{updatedUserId},
+			 #{createdAt},
+			 #{updatedAt}
+			 )
+	</insert>
+	
 </mapper>

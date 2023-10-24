@@ -17,4 +17,6 @@ public class KinmuEntity {
 	private int updatedUserId;
 	private Timestamp createdAt;
 	private Timestamp updatedAt;
+	
+	
 }
