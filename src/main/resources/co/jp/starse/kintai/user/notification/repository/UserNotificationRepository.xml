@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
 <mapper namespace="co.jp.starse.kintai.user.notification.repository.UserNotificationRepository">
 	<resultMap type="co.jp.starse.kintai.entity.Users"
 		id="userMap">
@@ -8,15 +9,15 @@
 		<result property="userName" column="user_name" />
 		<result property="userNameKana" column="user_name_kana" />
 		<result property="userNameRyaku" column="user_name_ryaku" />
-		<result property="mail" column="mail" />
+		<result property="email" column="mail" />
 		<result property="password" column="password" />
 		<result property="userImgPath" column="user_img_path" />
-		<result property="groupId" column="gorup_id" />
-		<result property="role" column="role" />
+		<result property="groupId" column="group_id" />
+		<result property="yakushoku" column="yakushoku" />
 		<result property="shoninshaKubun" column="shoninsha_kubun" />
 		<result property="birthday" column="birthday" />
 		<result property="userKubun" column="user_kubun" />
-		<result property="nyushaDate" column="nyusha_date" />
+		<result property="nyushaDate" column="nyusha-date" />
 		<result property="status" column="status" />
 		<result property="remainLeave" column="remain_leave" />
 		<result property="lastGetLeaveDt" column="last_get_leave_dt" />
@@ -27,8 +28,205 @@
 		<result property="updatedAt" column="updated_at" />
 	</resultMap>
 	
-	<select id="getAllUser" resultMap="userMap">
-		SELECT * FROM users
+	<resultMap
+		type="co.jp.starse.kintai.admin.kinmu.entity.KinmuDetailEntity"
+		id="kinmuDetailMap">
+		<id property="kinmuhyoDetailID" column="kinmuhyo_detail_id"></id>
+		<result property="kinmuhyoId" column="kinmuhyo_id" />
+		<result property="kintaiRenrakuId" column="kintai_renraku_id" />
+		<result property="date" column="date" />
+		<result property="hyojunKadoJikan" column="hyojun_kado_jikan" />
+		<result property="kinmuJyokyo" column="kinmu_jyokyo" />
+		<result property="startTime" column="start_time" />
+		<result property="endTime" column="end_time" />
+		<result property="kyukeiTime" column="kyukei_time" />
+		<result property="shoteigaiJikan" column="shoteigai_jikan" />
+		<result property="kadoJikan" column="kado_jikan" />
+		<result property="zangyouJikan" column="zangyou_jikan" />
+		<result property="biko" column="biko" />
+		<result property="createdUserId" column="created_user_id" />
+		<result property="updatedUserId" column="updated_user_id" />
+		<result property="createdAt" column="created_at" />
+		<result property="updatedAt" column="updated_at" />
+	</resultMap>
+	
+	<resultMap
+		type="co.jp.starse.kintai.admin.kinmu.entity.KinmuEntity"
+		id="kinmuMap">
+		<id property="kinmuhyoID" column="kinmuhyo_id"></id>
+		<result property="taisho_year_month" column="taisho_year_month" />
+		<result property="kubun_id" column="kubun_id" />
+		<result property="user_id" column="user_id" />
+		<result property="status" column="status" />
+		<result property="genbaKadoBi" column="genba_kado_bi" />
+		<result property="riyuu" column="riyuu" />
+		<result property="createdUserId" column="created_user_id" />
+		<result property="updatedUserId" column="updated_user_id" />
+		<result property="createdAt" column="created_at" />
+		<result property="updatedAt" column="updated_at" />
+	</resultMap>
+	<resultMap
+		type="co.jp.starse.kintai.admin.kinmu.entity.KinmuShoninshaEntity"
+		id="kinmuShoninshaMap">
+		<id property="kinmuhyoShoninshaId" column="kinmuhyo_shoninsha_id"></id>
+		<result property="kinmuhyoId" column="kinmuhyo_id" />
+		<result property="shoninUserId" column="shonin_user_id" />
+		<result property="shoninJyokyo" column="shonin_jyokyo" />
+		<result property="henkyakuRiyuu" column="henkyaku_riyuu" />
+		<result property="createdAt" column="created_at" />
+		<result property="updatedAt" column="updated_at" />
+	</resultMap>
+	
+	<resultMap
+		type="co.jp.starse.kintai.admin.kinmu.entity.KintaiRenrakuDetailEntity"
+		id="kintaiRenrakuDetailMap">
+		<id property="kintaiRenrakuDetailId"
+			column="kintai_renraku_detail_id"></id>
+		<result property="kintaiRenrakuId" column="kintai_renraku_id" />
+		<result property="date" column="date" />
+		<result property="kyukaType" column="kyuka_type" />
+		<result property="createdAt" column="created_at" />
+		<result property="updatedAt" column="updated_at" />
+	</resultMap>
+	
+	<resultMap
+		type="co.jp.starse.kintai.admin.kinmu.entity.KintaiRenrakuEntity"
+		id="kintaiRenrakuMap">
+		<id property="kintaiRenrakuId" column="kintai_renraku_id"></id>
+		<result property="userID" column="user_id" />
+		<result property="taityoufuyouKyukaId"
+			column="taityoufuyou_kyuka_id" />
+		<result property="kintaiRenrakuType"
+			column="kintai_renraku_type" />
+		<result property="genbaRenrakuFlag" column="genba_renraku_flag" />
+		<result property="reason" column="reason" />
+		<result property="shinseiDate" column="shinsei_date" />
+		<result property="status" column="status" />
+		<result property="kyukaJikan" column="kyuka_jikan" />
+		<result property="createdUserId" column="created_user_id" />
+		<result property="updatedUserId" column="updated_user_id" />
+		<result property="createdAt" column="created_at" />
+		<result property="updatedAt" column="updated_at" />
+	</resultMap>
+	
+	<resultMap
+		type="co.jp.starse.kintai.admin.kinmu.entity.KyuyoMeisaiEntity"
+		id="kyuyoMeisaiMap">
+		<id property="kyuyoMeisaiId" column="kyuyo_meisai_id"></id>
+		<result property="userId" column="user_id" />
+		<result property="taishoYearMonth" column="taisho_year_month" />
+		<result property="furikomiBi" column="furikomi_bi" />
+		<result property="kyuyoMeisaisyoUrl"
+			column="kyuyo_meisaisyo_url" />
+		<result property="status" column="status" />
+		<result property="createdUserId" column="created_user_id" />
+		<result property="updatedUserId" column="updated_user_id" />
+		<result property="createdAt" column="created_at" />
+		<result property="updatedAt" column="updated_at" />
+	</resultMap>
+	
+	<resultMap
+		type="co.jp.starse.kintai.admin.kinmu.entity.TaityofuyoEntity"
+		id="taityofuyoMap">
+		<id property="taityoufuyouID" column="taityoufuyou_id"></id>
+		<result property="syojyoKakuninnJikan"
+			column="syojyo_kakuninn_jikan" />
+		<result property="bodyTempature" column="body_tempature" />
+		<result property="normalTempature" column="normal_tempature" />
+		<result property="cough" column="cough" />
+		<result property="noodonoItami" column="noodono_itami" />
+		<result property="headache" column="headache" />
+		<result property="ikiGurushisa" column="iki_gurushisa" />
+		<result property="munenoItami" column="muneno_itami" />
+		<result property="fukutsuu" column="fukutsuu" />
+		<result property="senakaKanetsunoItami"
+			column="senaka_kanetsuno_itami" />
+		<result property="hanadzumari" column="hanadzumari" />
+		<result property="outo" column="outo" />
+		<result property="geri" column="geri" />
+		<result property="memai" column="memai" />
+		<result property="pcrKougenKensaJyokyo"
+			column="pcr_kougen_kensa_jyokyo" />
+		<result property="sonotaSyoujyoHosoku"
+			column="sonota_syoujyo_hosoku" />
+		<result property="taityofuyouCreatedUserId"
+			column="created_user_id" />
+		<result property="taityofuyouUpdatedUserId"
+			column="updated_user_id" />
+		<result property="createdAt" column="created_at" />
+		<result property="updatedAt" column="updated_at" />
+	</resultMap>
+	
+	<resultMap
+		type="co.jp.starse.kintai.user.notification.entity.UserNotificationEntity"
+		id="joinedDataMap">
+		<result property="userName" column="user_name" />
+		<result property="riyuu" column="riyuu" />
+		<result property="hyojunKadoJikan" column="hyojun_kado_jikan" />
+		<result property="shoninJyokyo" column="shonin_jyokyo" />
+		<result property="taishoYearMonth" column="taisho_year_month" />
+		<result property="furikomiBi" column="furikomi_bi" />
+		<result property="kyuyoMeisaisyoUrl"
+			column="kyuyo_meisaisyo_url" />
+		<result property="status" column="status" />
+		<result property="createdUserId" column="created_user_id" />
+		<result property="updatedUserId" column="updated_user_id" />
+		<result property="kintaiRenrakuType"
+			column="kintai_renraku_type" />
+		<result property="genbaRenrakuFlag" column="genba_renraku_flag" />
+		<result property="shinseiDate" column="shinsei_date" />
+		<result property="createdAt" column="created_at" />
+		<result property="date" column="date" />
+		<result property="kyukaType" column="kyuka_type" />
+		<result property="syojyoKakuninnJikan"
+			column="syojyo_kakuninn_jikan" />
+		<result property="bodyTempature" column="body_tempature" />
+		<result property="normalTempature" column="normal_tempature" />
+		<result property="cough" column="cough" />
+		<result property="noodonoItami" column="noodono_itami" />
+		<result property="headache" column="headache" />
+		<result property="ikiGurushisa" column="iki_gurushisa" />
+		<result property="munenoItami" column="muneno_itami" />
+		<result property="senakaKanetsunoItami"
+			column="senaka_kanetsuno_itami" />
+		<result property="hanadzumari" column="hanadzumari" />
+		<result property="outo" column="outo" />
+		<result property="geri" column="geri" />
+		<result property="memai" column="memai" />
+		<result property="pcrKougenKensaJyokyo"
+			column="pcr_kougen_kensa_jyokyo" />
+		<result property="taityofuyouCreatedUserId"
+			column="created_user_id" />
+		<result property="taityofuyouUpdatedUserId"
+			column="updated_user_id" />
+	</resultMap>
+	
+	<select id="getNotificationById" resultMap="joinedDataMap">
+		SELECT 
+			users.user_name, kinmuhyo.riyuu , kinmuhyo_shoninsha.shonin_jyokyo ,
+			kinmuhyo_detail.hyojun_kado_jikan , kyuyo_meisai.taisho_year_month, kyuyo_meisai.furikomi_bi,
+			kyuyo_meisai.kyuyo_meisaisyo_url,kyuyo_meisai.status,kyuyo_meisai.created_user_id,kyuyo_meisai.updated_user_id,
+			kintai_renraku.kintai_renraku_type ,kintai_renraku.genba_renraku_flag ,kintai_renraku.shinsei_date
+			,kintai_renraku.created_at, kintai_renraku_detail.date,kintai_renraku_detail.kyuka_type,
+			taityofuyou.syojyo_kakuninn_jikan , taityofuyou.body_tempature ,
+			taityofuyou.normal_tempature , taityofuyou.cough, taityofuyou.noodono_itami ,
+			taityofuyou.headache, taityofuyou.iki_gurushisa,taityofuyou.muneno_itami,taityofuyou.fukutsuu ,
+			taityofuyou.senaka_kanetsuno_itami,taityofuyou.hanadzumari,taityofuyou.outo,taityofuyou.geri,
+			taityofuyou.memai , taityofuyou.pcr_kougen_kensa_jyokyo ,
+			taityofuyou.created_user_id,taityofuyou.updated_user_id
+		FROM users
+			INNER JOIN kinmuhyo on kinmuhyo.user_id = users.user_id
+			INNER JOIN kinmuhyo_detail on kinmuhyo_detail.kinmuhyo_id = kinmuhyo.kinmuhyo_id
+			INNER JOIN kinmuhyo_shoninsha on kinmuhyo_shoninsha.kinmuhyo_id = kinmuhyo.kinmuhyo_id
+			INNER JOIN kyuyo_meisai on kyuyo_meisai.user_id = users.user_id
+			INNER JOIN kintai_renraku on kintai_renraku.user_id = users.user_id
+			INNER JOIN kintai_renraku_detail on kintai_renraku_detail.kintai_renraku_id = kintai_renraku.kintai_renraku_id
+			INNER JOIN taityofuyou on taityofuyou.taityoufuyou_id = kintai_renraku.taityoufuyou_kyuka_id
+		WHERE
+			users.user_id= CAST(#{user_id} AS bigint)
+		ORDER BY 
+			kinmuhyo.taisho_year_month,kintai_renraku.shinsei_date ,kyuyo_meisai.taisho_year_month,kinmuhyo.created_at,
+			kintai_renraku.created_at,kyuyo_meisai.created_at DESC
 	</select>
 	
 </mapper>

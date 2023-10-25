@@ -16,4 +16,12 @@ public class UserNotificationService {
 	public ResponseEntity<Object> getAllUser() {
 		return new ApiResponse(HttpStatus.OK,"アカウントデータ取得は完了しました。",userNotificationRepository.getAllUser()).response();
 	}
+
+	public ResponseEntity<Object> getNotificationById(String userId) {
+			if (userNotificationRepository.getNotificationById(userId).size() < 1) {
+				return new ApiResponse(HttpStatus.OK, "通知データがないです。").response();
+			} else
+				return new ApiResponse(HttpStatus.OK, "通知データ取得は完了しました。",
+						userNotificationRepository.getNotificationById(userId)).response();
+	}
 }

@@ -69,7 +69,7 @@ public class KinmuDto implements StdRequestDto {
 		kinmuBasic.setEndTime(endTime);
 		kinmuBasic.setKyukeiJikan(kyukeiJikan);
 		kinmuBasic.setBasicKinmuTime(Integer.parseInt(basicKinmuTime));
-		kinmuBasic.setShoteigaiTime(Integer.parseInt(shoteigaiTime));
+		kinmuBasic.setShoteigaiTime(Double.parseDouble(shoteigaiTime));
 		kinmuBasic.setCreatedUserId(createdUserId);
 		kinmuBasic.setUpdatedUserId(updatedUserId);
 		kinmuBasic.setCreatedAt(createdAt);

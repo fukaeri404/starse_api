@@ -14,7 +14,7 @@ public class KinmuBasicEntity {
 	private String endTime;
 	private String kyukeiJikan;
 	private Integer basicKinmuTime;
-	private Integer shoteigaiTime;
+	private Double shoteigaiTime;
 	private Integer createdUserId;
 	private Integer updatedUserId;
 	private Timestamp createdAt;
