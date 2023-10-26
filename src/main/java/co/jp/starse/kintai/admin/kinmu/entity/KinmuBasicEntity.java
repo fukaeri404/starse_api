@@ -13,7 +13,7 @@ public class KinmuBasicEntity {
 	private String startTime;
 	private String endTime;
 	private String kyukeiJikan;
-	private Integer basicKinmuTime;
+	private Double basicKinmuTime;
 	private Double shoteigaiTime;
 	private Integer createdUserId;
 	private Integer updatedUserId;
@@ -31,7 +31,7 @@ public class KinmuBasicEntity {
 		dto.setCreatedUserId(createdUserId);
 		dto.setUpdatedUserId(updatedUserId);
 		dto.setCreatedAt(createdAt);
-		dto.setUpdatedAt(updatedAt);
+		dto.setUpdatedAt(new Timestamp(System.currentTimeMillis()));
 		return dto;
 	}
 	

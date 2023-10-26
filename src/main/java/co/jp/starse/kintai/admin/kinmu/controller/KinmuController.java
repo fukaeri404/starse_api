@@ -2,6 +2,7 @@ package co.jp.starse.kintai.admin.kinmu.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -22,16 +23,15 @@ public class KinmuController {
 
 	@GetMapping("/admin-kinmu")
 	public ResponseEntity<Object> example() {
-
 		return kinmuService.getAllUser();
 	}
 	
 	// API CALL : localhost:8080/api/v1/admin/kinmuhyo
 	
 	@PostMapping("/kinmuhyo")
-	public ResponseEntity<Object> register(@RequestBody KinmuDto kinmuDto){
+	public ResponseEntity<Object> register(@RequestBody KinmuDto kinmuDto, Authentication auth){
 //		System.out.println(">>>>>>>>>"+kinmuDto);
-		return kinmuService.register(kinmuDto);
+		return kinmuService.register(kinmuDto, auth);
 	}
 	
 }
