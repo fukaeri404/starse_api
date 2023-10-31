@@ -45,6 +45,23 @@
 		<result property="updatedAt" column="updated_at" />
 	</resultMap>
 	
+	<resultMap type="co.jp.starse.kintai.admin.kinmu.entity.CalendarDetailEntity"
+		id="calendarDetailMap">
+		<id property="calenderDetailId" column="calender_detail_id"></id>
+		<result property="calenderId" column="calender_id" />
+		<result property="kyujitsuDate" column="kyujitsu_date" />
+		<result property="kyujitsuType" column="kyujitsu_type" />
+		<result property="kyujitsuName" column="kyujitsu_name" />
+		<result property="createdUserId" column="created_user_id" />
+		<result property="updatedUserId" column="updated_user_id" />
+		<result property="createdAt" column="created_at" />
+		<result property="updatedAt" column="updated_at" />
+	</resultMap>
+	
+	<select id="getCalendarDetailByYear" resultMap="calendarDetailMap">
+		SELECT * FROM calendar_detail WHERE EXTRACT(YEAR FROM kyujitsu_date) = #{year}
+	</select>
+	
 	<insert id="register" parameterType="co.jp.starse.kintai.admin.kinmu.entity.KinmuBasicEntity">
 		INSERT INTO 
 			basic_kinmu_info 

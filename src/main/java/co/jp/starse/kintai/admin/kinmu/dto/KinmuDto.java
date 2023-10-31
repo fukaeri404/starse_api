@@ -16,7 +16,7 @@ import lombok.Data;
 
 @Data
 public class KinmuDto implements StdRequestDto {
-
+	
 	@JsonProperty("basic_kinmu_info_id")
 	private Long basicKinmuInfoId;
 	@JsonProperty("start_time")
@@ -99,7 +99,7 @@ public class KinmuDto implements StdRequestDto {
 		kinmuBasic.setShoteigaiTime(Double.parseDouble(shoteigaiTime));
 		kinmuBasic.setCreatedUserId(createdUserId);
 		kinmuBasic.setCreatedAt(createdAt);
-		kinmuBasic.setUpdatedAt(new Timestamp(System.currentTimeMillis()));
+		kinmuBasic.setUpdatedAt(updatedAt);
 		return kinmuBasic;
 	}
 
