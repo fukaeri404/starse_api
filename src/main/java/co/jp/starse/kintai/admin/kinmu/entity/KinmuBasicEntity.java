@@ -29,9 +29,7 @@ public class KinmuBasicEntity {
 		dto.setBasicKinmuTime(String.valueOf(basicKinmuTime));
 		dto.setShoteigaiTime(String.valueOf(shoteigaiTime));
 		dto.setCreatedUserId(createdUserId);
-		dto.setUpdatedUserId(updatedUserId);
 		dto.setCreatedAt(createdAt);
-		dto.setUpdatedAt(new Timestamp(System.currentTimeMillis()));
 		return dto;
 	}
 	

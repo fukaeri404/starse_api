@@ -55,9 +55,7 @@
 			 basic_kinmu_time,
 			 shoteigai_time,
 			 created_user_id,
-			 updated_user_id,
-			 created_at,
-			 updated_at
+			 created_at
 			 ) 
 		VALUES 
 			(
@@ -67,9 +65,23 @@
 			 #{basicKinmuTime},
 			 #{shoteigaiTime},
 			 #{createdUserId},
-			 #{updatedUserId},
-			 #{createdAt},
-			 #{updatedAt}
+			 #{createdAt}
+			 )
+	</insert>
+	
+	<insert id="registerCalendar" parameterType="co.jp.starse.kintai.admin.kinmu.entity.CalendarEntity">
+		INSERT INTO 
+			calender
+			(
+			 taisho_year_month,
+			 calender_days,
+			 created_at
+			 ) 
+		VALUES 
+			(
+			 #{taishoYearMonth},
+			 #{calenderDays},
+			 #{createdAt}
 			 )
 	</insert>
 	

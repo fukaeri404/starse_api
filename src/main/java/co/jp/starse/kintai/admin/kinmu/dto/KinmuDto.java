@@ -10,7 +10,6 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import co.jp.starse.kintai.admin.kinmu.entity.KinmuBasicEntity;
-import co.jp.starse.kintai.config.UserAuthProvider.AuthUser;
 import co.jp.starse.kintai.utility.CommonUtils;
 import co.jp.starse.kintai.utility.StdRequestDto;
 import lombok.Data;
@@ -47,45 +46,34 @@ public class KinmuDto implements StdRequestDto {
 
 		if (CommonUtils.isEmpty(startTime)) {
 			errors.put("start_time", "出勤時間が必要です");
+		} else if (!isValidTime(startTime)) {
+			errors.put("start_time", "出勤時間フォーマットが正しくありません。例（０９：００）");
 		}
 
 		if (CommonUtils.isEmpty(endTime)) {
 			errors.put("end_time", "退勤時間が必要です");
+		} else if (!isValidTime(endTime)) {
+			errors.put("end_time", "退勤時間フォーマットが正しくありません。例（０９：００）");
 		}
 
 		if (CommonUtils.isEmpty(kyukeiJikan)) {
 			errors.put("kyukei_jikan", "休憩時間が必要です");
+		}else if (!isValidTime(kyukeiJikan)) {
+			errors.put("kyukei_jikan", "休憩時間フォーマットが正しくありません。例（０９：００）");
 		}
 
 		if (CommonUtils.isEmpty(basicKinmuTime)) {
 			errors.put("basic_kinmuTime", "基本勤務時間が必要です");
+		}else if (!isNumeric(basicKinmuTime)) {
+			errors.put("basic_kinmuTime", "基本勤務時間1か1.5か2か2.5など入力してください");
 		}
 
 		if (CommonUtils.isEmpty(shoteigaiTime)) {
 			errors.put("shoteigai_time", "所定外時間が必要です");
-		}
-
-		/* checking format */
-		if (!isValidTime(startTime)) {
-			errors.put("start_time", "出勤時間フォーマットが正しくありません。例（０９：００）");
-		}
-
-		if (!isValidTime(endTime)) {
-			errors.put("end_time", "退勤時間フォーマットが正しくありません。例（０９：００）");
-		}
-
-		if (!isValidTime(kyukeiJikan)) {
-			errors.put("kyukei_jikan", "休憩時間フォーマットが正しくありません。例（０９：００）");
-		}
-
-		if (!isNumeric(basicKinmuTime)) {
-			errors.put("basic_kinmuTime", "基本勤務時間1か1.5か2か2.5など入力してください");
-		}
-
-		if (!isNumeric(shoteigaiTime)) {
+		}else if (!isNumeric(shoteigaiTime)) {
 			errors.put("shoteigai_time", "所定外時間は1か1.5か2か2.5など入力してください");
 		}
-			
+
 		return errors;
 	}
 
@@ -101,7 +89,7 @@ public class KinmuDto implements StdRequestDto {
 		return input.matches(pattern);
 	}
 
-	public KinmuBasicEntity toEntity(AuthUser authUser) {
+	public KinmuBasicEntity toEntity() {
 		KinmuBasicEntity kinmuBasic = new KinmuBasicEntity();
 		kinmuBasic.setBasicKinmuInfoId(basicKinmuInfoId);
 		kinmuBasic.setStartTime(startTime);
@@ -109,8 +97,7 @@ public class KinmuDto implements StdRequestDto {
 		kinmuBasic.setKyukeiJikan(kyukeiJikan);
 		kinmuBasic.setBasicKinmuTime(Double.parseDouble(basicKinmuTime));
 		kinmuBasic.setShoteigaiTime(Double.parseDouble(shoteigaiTime));
-		kinmuBasic.setCreatedUserId(authUser.getId());
-		kinmuBasic.setUpdatedUserId(authUser.getId());
+		kinmuBasic.setCreatedUserId(createdUserId);
 		kinmuBasic.setCreatedAt(createdAt);
 		kinmuBasic.setUpdatedAt(new Timestamp(System.currentTimeMillis()));
 		return kinmuBasic;

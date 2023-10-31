@@ -1,5 +1,6 @@
 package co.jp.starse.kintai.admin.kinmu.service;
 
+import java.sql.Timestamp;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
+import co.jp.starse.kintai.admin.kinmu.dto.CalendarDto;
 import co.jp.starse.kintai.admin.kinmu.dto.KinmuDto;
 import co.jp.starse.kintai.admin.kinmu.repository.KinmuRepository;
 import co.jp.starse.kintai.common.Messages;
@@ -38,7 +40,24 @@ public class KinmuService {
 			return new ApiErrorResponse(errors, HttpStatus.BAD_REQUEST, Messages.REGISTER_FAIL).response();
 		}
 		
-		kinmuRepository.register(dto.toEntity(authUser));
+		dto.setCreatedAt(new Timestamp(System.currentTimeMillis()));
+		dto.setCreatedUserId(authUser.getId());
+		
+		kinmuRepository.register(dto.toEntity());
+		
+		return new ApiResponse(HttpStatus.CREATED, Messages.REGISTER_SUCCESS).response();
+	}
+	
+	public ResponseEntity<Object> registerCalendar(CalendarDto dto){
+		Map<String, Object> errors = dto.validate();
+		
+		if(errors.size()>0) {
+			System.out.println(errors.size());
+			return new ApiErrorResponse(errors, HttpStatus.BAD_REQUEST, Messages.REGISTER_FAIL).response();
+		}
+		
+		dto.setCreatedAt(new Timestamp(System.currentTimeMillis()));
+		kinmuRepository.registerCalendar(dto.toEntity());
 		
 		return new ApiResponse(HttpStatus.CREATED, Messages.REGISTER_SUCCESS).response();
 	}

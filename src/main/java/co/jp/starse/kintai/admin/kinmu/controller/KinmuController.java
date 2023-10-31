@@ -1,5 +1,6 @@
 package co.jp.starse.kintai.admin.kinmu.controller;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
@@ -9,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import co.jp.starse.kintai.admin.kinmu.dto.CalendarDto;
 import co.jp.starse.kintai.admin.kinmu.dto.KinmuDto;
 import co.jp.starse.kintai.admin.kinmu.service.KinmuService;
 
@@ -32,6 +34,13 @@ public class KinmuController {
 	public ResponseEntity<Object> register(@RequestBody KinmuDto kinmuDto, Authentication auth){
 //		System.out.println(">>>>>>>>>"+kinmuDto);
 		return kinmuService.register(kinmuDto, auth);
+	}
+	
+	// API CALL : localhost:8080/api/v1/admin/kinmuhyo/calendar
+	
+	@PostMapping("/kinmuhyo/calendar")
+	public ResponseEntity<Object> registerCalendar(@RequestBody CalendarDto calendarDto){
+		return kinmuService.registerCalendar(calendarDto);
 	}
 	
 }
