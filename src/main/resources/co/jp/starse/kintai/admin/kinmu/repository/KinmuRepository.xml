@@ -45,6 +45,15 @@
 		<result property="updatedAt" column="updated_at" />
 	</resultMap>
 	
+	<resultMap type="co.jp.starse.kintai.admin.kinmu.entity.CalendarEntity"
+		id="calendarMap">
+		<id property="calenderId" column="calender_id"></id>
+		<result property="taishoYearMonth" column="taisho_year_month" />
+		<result property="calenderDays" column="calender_days" />
+		<result property="createdAt" column="created_at" />
+		<result property="updatedAt" column="updated_at" />
+	</resultMap>
+	
 	<resultMap type="co.jp.starse.kintai.admin.kinmu.entity.CalendarDetailEntity"
 		id="calendarDetailMap">
 		<id property="calenderDetailId" column="calender_detail_id"></id>
@@ -58,7 +67,13 @@
 		<result property="updatedAt" column="updated_at" />
 	</resultMap>
 	
-	<select id="getCalendarDetailByYear" resultMap="calendarDetailMap">
+	
+	<select id="getAllCalendars" resultMap="calendarMap">
+		SELECT * FROM calender
+	</select>
+	
+	
+	<select id="getAllCalendarDetailsByYear" resultMap="calendarDetailMap">
 		SELECT * FROM calendar_detail WHERE EXTRACT(YEAR FROM kyujitsu_date) = #{year}
 	</select>
 	

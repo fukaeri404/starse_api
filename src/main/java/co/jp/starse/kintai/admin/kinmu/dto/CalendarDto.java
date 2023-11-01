@@ -16,8 +16,8 @@ import lombok.Data;
 
 @Data
 public class CalendarDto implements StdRequestDto{
-	@JsonProperty("calendar_id")
-	private Long calendarId;
+	@JsonProperty("calender_id")
+	private Long calenderId;
 	@JsonProperty("taisho_year_month")
 	private String taishoYearMonth;
 	@JsonProperty("calender_days")
@@ -56,7 +56,7 @@ public class CalendarDto implements StdRequestDto{
 	
 	public CalendarEntity toEntity() {
 		CalendarEntity calendar = new CalendarEntity();
-		calendar.setCalendarId(calendarId);
+		calendar.setCalenderId(calenderId);
 		calendar.setTaishoYearMonth(taishoYearMonth);
 		calendar.setCalenderDays(Integer.parseInt(calenderDays));
 		calendar.setCreatedAt(createdAt);

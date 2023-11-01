@@ -18,5 +18,7 @@ public interface KinmuRepository {
 	
 	public void registerCalendar(CalendarEntity calendar);
 	
-	ArrayList<CalendarDetailEntity> getCalendarDetailByYear(Integer year);
+	ArrayList<CalendarEntity> getAllCalendars();
+	
+	ArrayList<CalendarDetailEntity> getAllCalendarDetailsByYear(Integer year);
 }

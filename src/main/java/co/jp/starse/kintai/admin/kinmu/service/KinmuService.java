@@ -15,6 +15,7 @@ import co.jp.starse.kintai.admin.kinmu.dto.CalendarDetailDto;
 import co.jp.starse.kintai.admin.kinmu.dto.CalendarDto;
 import co.jp.starse.kintai.admin.kinmu.dto.KinmuDto;
 import co.jp.starse.kintai.admin.kinmu.entity.CalendarDetailEntity;
+import co.jp.starse.kintai.admin.kinmu.entity.CalendarEntity;
 import co.jp.starse.kintai.admin.kinmu.repository.KinmuRepository;
 import co.jp.starse.kintai.common.Messages;
 import co.jp.starse.kintai.config.UserAuthProvider;
@@ -28,63 +29,102 @@ public class KinmuService {
 
 	@Autowired
 	KinmuRepository kinmuRepository;
-	
+
 	@Autowired
 	UserAuthProvider userAuthProvider;
 
 	public ResponseEntity<Object> getAllUser() {
 		return new ApiResponse(HttpStatus.OK, "アカウントデータ取得は完了しました。", kinmuRepository.getAllUser()).response();
 	}
-	
-	public ResponseEntity<Object> register(KinmuDto dto, Authentication auth){
+
+	public ResponseEntity<Object> register(KinmuDto dto, Authentication auth) {
 		Map<String, Object> errors = dto.validate();
 		AuthUser authUser = userAuthProvider.getAuthUser(auth);
-		
-		if(errors.size()>0) {
+
+		if (errors.size() > 0) {
 			System.out.println(errors.size());
 			return new ApiErrorResponse(errors, HttpStatus.BAD_REQUEST, Messages.REGISTER_FAIL).response();
 		}
-		
+
 		dto.setCreatedAt(new Timestamp(System.currentTimeMillis()));
 		dto.setCreatedUserId(authUser.getId());
-		
+
 		kinmuRepository.register(dto.toEntity());
-		
+
 		return new ApiResponse(HttpStatus.CREATED, Messages.REGISTER_SUCCESS).response();
 	}
-	
-	public ResponseEntity<Object> registerCalendar(CalendarDto dto){
+
+	public ResponseEntity<Object> registerCalendar(CalendarDto dto) {
 		Map<String, Object> errors = dto.validate();
-		
-		if(errors.size()>0) {
+		boolean isRepeat = false;
+		if (errors.size() > 0) {
 			System.out.println(errors.size());
 			return new ApiErrorResponse(errors, HttpStatus.BAD_REQUEST, Messages.REGISTER_FAIL).response();
 		}
-		
+
 		dto.setCreatedAt(new Timestamp(System.currentTimeMillis()));
-		kinmuRepository.registerCalendar(dto.toEntity());
-		
+		ArrayList<CalendarDto> cdto = new ArrayList<>();
+		if (kinmuRepository.getAllCalendars().size() > 0) {
+			for (CalendarEntity c : kinmuRepository.getAllCalendars())
+				cdto.add(c.toDto());
+
+			for (CalendarDto d : cdto) {
+				if (d.getTaishoYearMonth().equals(dto.getTaishoYearMonth())) {
+					isRepeat = true;
+					errors.put("taisho_year_month", "入力された対象年月はもうあります");
+					break;
+				}
+			}
+		}
+
+		if (isRepeat)
+			return new ApiErrorResponse(HttpStatus.BAD_REQUEST, HttpStatus.BAD_REQUEST.getReasonPhrase(), errors)
+					.response();
+		else
+			kinmuRepository.registerCalendar(dto.toEntity());
+
 		return new ApiResponse(HttpStatus.CREATED, Messages.REGISTER_SUCCESS).response();
 	}
 
 	public ResponseEntity<Object> getCalendarDetails(String year) {
 		Map<String, Object> errors = new LinkedHashMap<String, Object>();
-		if(!CommonUtils.isNumeric(year)) {
-			errors.put("year", "ほしい年とフォーマットが正しくありません（例：「２０２３」）");
-			return new ApiErrorResponse(errors, HttpStatus.BAD_REQUEST, HttpStatus.BAD_REQUEST.getReasonPhrase()).response();
+		if (!CommonUtils.isNumeric(year)) {
+			errors.put("path_year", "ほしい年とフォーマットが正しくありません（例：「２０２３」）");
+			return new ApiErrorResponse(errors, HttpStatus.BAD_REQUEST, HttpStatus.BAD_REQUEST.getReasonPhrase())
+					.response();
 		}
-		
-		ArrayList<CalendarDetailEntity> cDetailEntity = kinmuRepository.getCalendarDetailByYear(Integer.parseInt(year));
-		ArrayList<CalendarDetailDto> cDetailDto = new ArrayList<>();
-		for(CalendarDetailEntity c : cDetailEntity) {
-			cDetailDto.add(c.toDto());
+
+		ArrayList<CalendarDetailEntity> cDetailEntity = kinmuRepository
+				.getAllCalendarDetailsByYear(Integer.parseInt(year));
+		ArrayList<CalendarEntity> cEntity = kinmuRepository.getAllCalendars();
+
+		ArrayList<CalendarDetailDto> cDetailDtoAll = new ArrayList<>();
+		ArrayList<CalendarDto> cDtoAll = new ArrayList<>();
+
+		for (CalendarDetailEntity c : cDetailEntity) {
+			cDetailDtoAll.add(c.toDto());
 		}
-		
+
+		for (CalendarEntity ce : cEntity) {
+			cDtoAll.add(ce.toDto());
+		}
+
 		ArrayList<Map<String, ArrayList<CalendarDetailDto>>> bigg = new ArrayList<>();
-		Map<String, ArrayList<CalendarDetailDto>> smalll = new LinkedHashMap<>();
-		smalll.put(year, cDetailDto);
-		bigg.add(smalll);
-		
+		Map<String, ArrayList<CalendarDetailDto>> cDetailMonthMap = new LinkedHashMap<>();
+
+		for (CalendarDto cDto : cDtoAll) {
+			ArrayList<CalendarDetailDto> cDetailMonth = new ArrayList<>();
+			for (CalendarDetailDto cDetaildto : cDetailDtoAll) {
+				if (cDto.getCalenderId() == cDetaildto.getCalenderId()) {
+					cDetailMonth.add(cDetaildto);
+//					cDetailMonthMap.put(cDto.getTaishoYearMonth(), cDetailMonth); /* here if you don't want to show other months which doesn't have holidays */
+				}
+			}
+			if(cDto.getTaishoYearMonth().substring(0,4).equals(year)) {
+				cDetailMonthMap.put(cDto.getTaishoYearMonth(), cDetailMonth);
+			}
+		}
+		bigg.add(cDetailMonthMap);
 		return new ApiResponse(bigg, HttpStatus.OK, HttpStatus.OK.getReasonPhrase()).response();
 	}
 }
